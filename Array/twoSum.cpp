@@ -7,6 +7,7 @@
 //Approch: Nested loop i and j
 
 //Better Soln: TC: O(n) SC: O(n)
+// TC Paradox: if ordered map: O(N*logN) [no collision], if unordered map: O(N*1) [mostly i.e. best and avg TC] but if collision happens [happens once in a blue moon] then O(N*N)
 //Approch: Hashmap
 
 vector<int> twoSum(vector<int>& nums, int target) {
@@ -21,7 +22,7 @@ vector<int> twoSum(vector<int>& nums, int target) {
     return {}; // no solution found
 }
 
-//Optimized: TC: O(n)[two pointer] + o(nlogn) [sorting]
+//Optimized: TC: O(n) & O(nlogn) [if sorting also done]
 //Approach: Two Pointer, Greedy way
 
 #include <bits/stdc++.h>
@@ -49,7 +50,7 @@ public:
 };
 
 
-//Counting number of pairs with sum equal to target given sorted array
+//Counting number of pairs with sum equal to target given sorted array (same compexities as without counting pairs version)
 //https://www.geeksforgeeks.org/problems/pair-with-given-sum-in-a-sorted-array4940/1
 
 class Solution {
@@ -105,9 +106,11 @@ class Solution {
 
 // Counting number of pairs when unsorted array given (Hashmap technique)
 
+
 class Solution {
-public:
+  public:
     int countPairs(vector<int> &arr, int target) {
+        // Complete the function
         unordered_map<int,int> freq;
         for (int x : arr) {
             freq[x]++;
@@ -122,15 +125,12 @@ public:
                 if (x == y) {
                     // choose 2 out of freq[x]
                     c += (freq[x] * (freq[x] - 1)) / 2;
-                } else {
+                } else if(x  < y) {   // else if condition is for skiping to count same pair (x,y) as (y,x).
                     c += freq[x] * freq[y];
                 }
             }
         }
 
-        // Each pair counted twice when x != y
-        return c / 2; 
-        // Why: When x != y, both (x,y) and (y,x) are counted during iteration. Fix: Divide by 2 at the end.
-    //Interview phrasing: “Since the loop sees both directions of a pair, I normalize by dividing the total count by two.”
+        return c; 
     }
 };
