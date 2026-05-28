@@ -1,5 +1,6 @@
 // Problem: Best Time To Buy and Sell Stocks
 // https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+// Pattern of Optimization: This is a classic greedy pattern: make the best local decision (track min price) to achieve the global optimum (max profit).
 
 
 //BFS: TC(N^2) SC:O(1) 
