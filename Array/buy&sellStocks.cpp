@@ -1,6 +1,22 @@
 // Problem: Best Time To Buy and Sell Stocks
 // https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
 
+
+//BFS: TC(N^2) SC:O(1) 
+//Approach: Explore all possible ways to buy and sell stock. Nested i and j.
+
+int maxProfit(vector<int> &prices) {  
+    int n = prices.size();
+    int profit = 0;
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+			profit = max(res, prices[j] - prices[i]);
+        }
+    }
+    return profit;
+}
+
+
 // One pass scan problem. Keep track of minPrice. Compute the profit if sold today. Update maxProfit. Update minProce if today's price lower.
 // TC: O(N) SC: O(1)
 
