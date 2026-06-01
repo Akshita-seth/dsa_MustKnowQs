@@ -1,7 +1,9 @@
 //Problem: Reverse a Linked List
 //https://leetcode.com/problems/reverse-linked-list/description/
 
-//BFS: Using Stack jjst values reversed
+//BFS: Using Stack. Just values reversed
+// TC: O(2N) ,We traverse the linked list twice once to push all node values into the stack, and once to reassign values. Each traversal takes O(N) time, where N is the number of nodes.
+// SC: O(N)
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -35,6 +37,7 @@ public:
 
 
 //Optimized Iterative approach => Changing the links 
+TC: O(N)
 
 class Solution {
 public:
@@ -56,6 +59,8 @@ public:
 
 
  //RECURSIVE METHOD
+// TC: O(N)Each node is visited exactly once during the recursive call, and we do constant-time work for each node (like flipping pointers).
+// SC:  O(n),The recursion stack goes up to n levels deep (one for each node), which uses extra space on the call stack.
 
 class Solution {
 public:
