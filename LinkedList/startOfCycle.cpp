@@ -32,6 +32,7 @@ public:
 
 
 // Optimized: Fast and Slow Pointer
+//Distance theory using fast and slow pointer. The first node where fast and slow pointers meet, from there the distance to the starting node of the loop and the distance from the head to the starting of the loop is saem.
 // TC: O(N) where N is the number of nodes in the linked list. In the worst case, we traverse the entire list once with the slow and fast pointers, and then again to find the entry point of the loop.
 
 class Solution {
