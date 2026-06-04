@@ -66,3 +66,23 @@ public:
     }
 };
 
+class Solution {
+    int diam = 0;
+public:
+    int findHeight(TreeNode* root)
+    {
+        if(root == NULL)
+        return 0;
+        int lh = findHeight(root->left);
+        int rh = findHeight(root->right);
+        diam = max(diam, lh+rh);
+        return 1 + max(lh, rh);  // Although no variable to accept the return value in calling fn, the return statement is imp for recusrion of the findheight()
+    }
+public:
+    int diameterOfBinaryTree(TreeNode* root) {
+        if(root == NULL)
+        return 0;
+        findHeight(root);
+        return diam;
+    }
+};
