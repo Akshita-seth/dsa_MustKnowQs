@@ -1,5 +1,5 @@
 // Problem: Lowest Common Ancestor In A Binary Tree
-// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
 
 
 // TC: O(N), where N is the number of nodes in the binary tree. In the worst case, we may need to traverse all nodes to find the LCA.
