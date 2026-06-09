@@ -5,6 +5,7 @@
 // TC: O(N) SC: O(N)
 
 // Optimized: Use recursion (or BFS with bounds), carrying min/max constraints down the tree, validating each node on the fly 
+// The optimized recursion works because each node is checked against its global bounds, not just its parent.
 // TC: O(N) SC: O(H)
 
 class Solution {
