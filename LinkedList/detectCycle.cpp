@@ -2,7 +2,7 @@
 // https://leetcode.com/problems/linked-list-cycle/description/
 
 
-// BFS: TC: O(N*LogN), we traverse the entire linked list once and store and retrieve nodes from the hash map. Map operations have a worst time space complexiy of O(LogN).
+// BFS: TC: O(N*1) best and avg case, (N*N) worst case for unordered map and O(N*logN) if ordered map used, we traverse the entire linked list once so N TC and store and retrieve nodes from the hash map. Map operations since unordered map used hence 1 or N, if ordered map used them TC: O(logN) for all best, avg and worst. 
 // SC: O(N)
 // Approach: Using MAP to store visited nodes and finding if an already visited node is encountered or not
 
