@@ -1,4 +1,4 @@
-// Problems: Path SUM 
+// Problems: Path SUM [Root-To-Leaf]
 // The helper function pattern is only needed when you want to track extra state (like a vector of nodes for Path Sum II, or prefix sums for Path Sum III).
 // For Path Sum I, recursion in the same function is clean and sufficient.
 
@@ -88,3 +88,41 @@ public:
 
 
 // PATH SUM II
+// https://leetcode.com/problems/path-sum-ii/description/
+
+
+// Optimized:
+// TC: Each node is visited once → O(N)
+
+class Solution {
+public:
+    void findPaths(TreeNode* root, int targetSum, vector<int>& temp, vector<vector<int>>& paths)
+    {
+        if(!root)
+        return;
+        temp.push_back(root->val);
+        if(!root->left && !root->right)
+        {
+            if(targetSum == root->val)
+                paths.push_back(temp);
+        }
+        findPaths(root->left, targetSum - root->val, temp, paths);
+        findPaths(root->right, targetSum - root->val, temp, paths);
+        temp.pop_back();
+    }
+public:
+    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+        vector<vector<int>> paths;
+        vector<int> temp;
+        if(!root)
+        return paths;
+        findPaths(root, targetSum, temp, paths);
+        return paths;
+    }
+};
+
+
+
+
+
+
