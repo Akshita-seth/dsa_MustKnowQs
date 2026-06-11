@@ -1,0 +1,90 @@
+// Problems: Path SUM 
+// The helper function pattern is only needed when you want to track extra state (like a vector of nodes for Path Sum II, or prefix sums for Path Sum III).
+// For Path Sum I, recursion in the same function is clean and sufficient.
+
+// PathS Sum I
+// https://leetcode.com/problems/path-sum/
+
+// BFS: For Path Sum I, a brute force approach would mean:
+// Enumerating all root-to-leaf paths in the tree. For each path, compute the sum of its nodes.Check if any equals the target.
+// This can be done by: Doing a DFS that collects every path into a vector, then summing at the end.
+
+
+bool hasPathSum(TreeNode* root, int targetSum) {
+    if (!root) return false;
+    vector<vector<int>> allPaths;
+    vector<int> current;
+    
+    // DFS to collect every root-to-leaf path
+    function<void(TreeNode*)> dfs = [&](TreeNode* node) {
+        if (!node) return;
+        current.push_back(node->val);
+        if (!node->left && !node->right) {
+            allPaths.push_back(current);
+        } else {
+            dfs(node->left);
+            dfs(node->right);
+        }
+        current.pop_back();
+    };
+    
+    dfs(root);
+    
+    // Check sums of all collected paths
+    for (auto &path : allPaths) {
+        int sum = 0;
+        for (int val : path) sum += val;
+        if (sum == targetSum) return true;
+    }
+    return false;
+}
+
+//So instead of writing a separate helper function, the brute force code I showed defines a local recursive function inline. 
+//It’s just a stylistic choice — you can absolutely write it as a normal helper function if you prefer.
+
+void dfs(TreeNode* node, vector<int>& current, vector<vector<int>>& allPaths) {
+    if (!node) return;
+    current.push_back(node->val);
+    if (!node->left && !node->right) {
+        allPaths.push_back(current);
+    } else {
+        dfs(node->left, current, allPaths);
+        dfs(node->right, current, allPaths);
+    }
+    current.pop_back();
+}
+
+bool hasPathSum(TreeNode* root, int targetSum) {
+    if (!root) return false;
+    vector<vector<int>> allPaths;
+    vector<int> current;
+    dfs(root, current, allPaths);
+
+    for (auto &path : allPaths) {
+        int sum = 0;
+        for (int val : path) sum += val;
+        if (sum == targetSum) return true;
+    }
+    return false;
+}
+
+
+
+//Optimized: Instead of storing paths, subtract node values as you go down; at a leaf, check if the remaining sum is zero.
+// TC: O(N), since each node is visited once.
+// SC: O(H) where H is the height of the tree (stack depth). Worst case O(N) for a skewed tree, best case O(logN) for a balanced tree.
+
+class Solution {
+public:
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        if(root == NULL)
+        return false;
+        if(!root->left && !root->right)
+        return targetSum == root->val; //Basically checking if the leaf node's value is equal to the remaining targetSum i.e. will it be in the path
+        return hasPathSum(root->left, targetSum-root->val) || hasPathSum(root->right, targetSum-root->val);
+
+    }
+};
+
+
+// PATH SUM II
