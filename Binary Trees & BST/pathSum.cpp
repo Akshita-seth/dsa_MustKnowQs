@@ -91,8 +91,26 @@ public:
 // https://leetcode.com/problems/path-sum-ii/description/
 
 
-// Optimized:
-// TC: Each node is visited once → O(N)
+//BFS:
+// Brute force would mean:
+// Generate all root-to-leaf paths (store them in a list).
+// For each path, compute the sum separately. Check if any equals the target.
+// This wastes effort because you compute sums after building paths, instead of checking during traversal.
+// The brute force version is mainly useful for understanding, but not for efficiency.
+// TC: O(N.H) (same asymptotic, but less efficient in practice).
+// SC: O(N.H) (storing all paths explicitly).
+
+
+// Optimized: DFS + backtracking solution.
+// TC: Each node is visited once → O(N) At each leaf, you may copy the current path into paths. Copying costs up to O(H) H is the height of the tree.
+// If there are many leaves, this adds up to O(N.H) in the worst case.
+// Final: Worst case: O(N.H) 
+// Average case: closer to O(N) if the number of leaves is small.
+
+//SC: 
+// Recursion stack: O(H)
+// Temporary path (temp): O(H)
+// Result storage (paths): In the worst case, if all root-to-leaf paths are valid, you store them all → O(N.H)
 
 class Solution {
 public:
@@ -108,7 +126,7 @@ public:
         }
         findPaths(root->left, targetSum - root->val, temp, paths);
         findPaths(root->right, targetSum - root->val, temp, paths);
-        temp.pop_back();
+        temp.pop_back();  //ensures backtracking
     }
 public:
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
@@ -120,6 +138,10 @@ public:
         return paths;
     }
 };
+
+
+// PATH SUM III
+// https://leetcode.com/problems/path-sum-iii/description/
 
 
 
