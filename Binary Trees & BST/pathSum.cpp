@@ -202,7 +202,7 @@ public:
 
 class Solution {
 public:
-    int countPaths(TreeNode* node, long long targetSum, long long currentSum, unordered_map<long long, int>& nodeSum)
+    int countPaths(TreeNode* node, long long targetSum, long long currentSum, unordered_map<long long, int>& pathsSumFreq)
     {
         if(!node)
         return 0;
@@ -210,24 +210,24 @@ public:
         currentSum += node->val;
         // counting paths ending at this node with the targetSum
         int count = 0;
-        if(nodeSum.find(currentSum - targetSum) != nodeSum.end())
-        count += nodeSum[currentSum - targetSum];
+        if(pathsSumFreq.find(currentSum - targetSum) != pathsSumFreq.end())
+        count += pathsSumFreq[currentSum - targetSum];
         // add current prefix sum to map
-        nodeSum[currentSum]++;
+        pathsSumFreq[currentSum]++;
         // recursing into children
-        count += countPaths(node->left, targetSum, currentSum, nodeSum);
-        count += countPaths(node->right, targetSum, currentSum, nodeSum);
+        count += countPaths(node->left, targetSum, currentSum, pathsSumFreq);
+        count += countPaths(node->right, targetSum, currentSum, pathsSumFreq);
          //The optimized approach keeps targetSum fixed and only updates currentSum. The check is done via prefix sums, not by shrinking the target.
          // Backtrack: remove current prefix sum
-         nodeSum[currentSum]--;
+         pathsSumFreq[currentSum]--;
         return count;
     }
 public:
     int pathSum(TreeNode* root, int targetSum) {
         if(!root)
         return 0;
-        unordered_map<long long, int> nodeSum;
-        nodeSum[0] = 1;  // base case: path starting at root
-        return countPaths(root, targetSum, 0, nodeSum);
+        unordered_map<long long, int> pathsSumFreq;
+        pathsSumFreq[0] = 1;  // base case: path starting at root
+        return countPaths(root, targetSum, 0, pathsSumFreq);
     }
 };
