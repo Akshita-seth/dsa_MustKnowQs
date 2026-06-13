@@ -144,7 +144,90 @@ public:
 // https://leetcode.com/problems/path-sum-iii/description/
 
 
+// BFS:
+// Outer DFS: Traverse the entire tree. At each node, treat it as a potential starting point for a path.
+// Inner DFS: From that node, explore all downward paths. Subtract node values from the target as you go. If the running sum equals the target at any point, count it.
+// TC: O(N^2) worst case (outer DFS × inner DFS).
+// SC: O(H)recursion stack, where H is tree height.
+// In helper fn targetSum is takend as long long since in leetcode 437 targetSum was going beyond the 32-int range during recursion.
+
+class Solution {
+public: //helper function
+    int countFromNode(TreeNode* node, long long targetSum)
+    {
+        if(!node)
+        return 0;
+        int count=0;
+        if(node->val == targetSum) 
+        count++;
+
+        count += countFromNode(node->left, targetSum - node->val);
+        count += countFromNode(node->right, targetSum - node->val);
+
+        return count;
+    }
+public:
+    int pathSum(TreeNode* root, int targetSum) {
+        if(!root)
+        return 0;
+        //Outer DFS
+        // Current node as start/potential node to check path
+        int pathsFromHere = countFromNode(root, targetSum);
+        // Recurse into left amd right 
+        int pathsLeft = pathSum(root->left, targetSum);
+        int pathsRight = pathSum(root->right, targetSum);
+        
+        return pathsFromHere + pathsLeft + pathsRight;
+    }
+};
 
 
+// Brute force doesn’t “remember” partial sums. It just recomputes everything from scratch for each node.
+// OS: Use a prefix sum + hashmap to keep track of cumulative sums as you traverse.
+// At each node, compute the current prefix sum.
+// Check if (currentSum - targetSum) exists in the map — that means there’s a previous prefix sum that makes the path between them equal to target.
+// This way, you count valid paths in one DFS traversal instead of restarting DFS at every node.
+// TC: O(N) Each node is visited once [hashmap lookup is O(1)]
+// SC: O(N) for the hashmap
 
+// for helper Function
+// In the optimized approach, you must:
+// Add the current node’s value to currentSum.
+// Check how many times (currentSum - targetSum) has appeared before.
+// Then increment the frequency of currentSum in the map.
+// Only after that, recurse into children.
+// currentSum is updated before recursion.
+// The map is updated before recursion.
+// Backtracking happens after recursion.
 
+class Solution {
+public:
+    int countPaths(TreeNode* node, long long targetSum, long long currentSum, unordered_map<long long, int>& nodeSum)
+    {
+        if(!node)
+        return 0;
+        // Update current prefix sum
+        currentSum += node->val;
+        // counting paths ending at this node with the targetSum
+        int count = 0;
+        if(nodeSum.find(currentSum - targetSum) != nodeSum.end())
+        count += nodeSum[currentSum - targetSum];
+        // add current prefix sum to map
+        nodeSum[currentSum]++;
+        // recursing into children
+        count += countPaths(node->left, targetSum, currentSum, nodeSum);
+        count += countPaths(node->right, targetSum, currentSum, nodeSum);
+         //The optimized approach keeps targetSum fixed and only updates currentSum. The check is done via prefix sums, not by shrinking the target.
+         // Backtrack: remove current prefix sum
+         nodeSum[currentSum]--;
+        return count;
+    }
+public:
+    int pathSum(TreeNode* root, int targetSum) {
+        if(!root)
+        return 0;
+        unordered_map<long long, int> nodeSum;
+        nodeSum[0] = 1;  // base case: path starting at root
+        return countPaths(root, targetSum, 0, nodeSum);
+    }
+};
