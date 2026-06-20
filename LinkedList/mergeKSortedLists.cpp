@@ -139,8 +139,16 @@ public:
             if (node) pq.push(node);
         }
 
-        ListNode dummy;
-        ListNode* tail = &dummy;
+        // Creates a stack allocated node. dummy is a real ListNode object that lives until the function returns.
+        //&dummy gives the address of the stack object. tail is a pointer to that dummy node. At the end, you return dummy.next.
+        // Lifetime - Auto‑destroyed when function ends
+        // ListNode dummy;
+        // ListNode* tail = &dummy;
+
+        // creates a heap‑allocated node. dummy is a pointer to that heap node. tail = dummy; points to the same heap node. 
+        // Lifetime - Until manually deleted
+        ListNode* dummy = new ListNode();
+        ListNode* tail = dummy;
 
         while (!pq.empty()) {
             ListNode* smallest = pq.top();
@@ -154,8 +162,62 @@ public:
             }
         }
 
-        return dummy.next;
+        return dummy->next;
     }
-};
+ };
 
 
+// tail = dummy → correct, both point to the same node.
+// tail = &dummy → wrong, makes tail a pointer to a pointer (ListNode**).
+// Always use dummy as the fixed anchor, tail as the moving pointer.
+
+
+
+// auto &node	-Reference to pointer (ListNode*&)	-Changes affect original vector	-Needed if you want to modify lists
+// auto node	-Copy of pointer (ListNode*)	-Changes affect only local copy	-Safe if just reading/pushing
+
+
+// 1. Matching comparator with heap
+// -> Heap declaration:
+
+// cpp
+// priority_queue<ListNode*, vector<ListNode*>, customComparator> minHeap;
+// ListNode* → type stored in heap
+
+// vector<ListNode*> → underlying container
+
+// customComparator → comparator type
+
+// -> Comparator must accept two ListNode* arguments:
+
+// cpp
+// struct customComparator {
+//     bool operator()(ListNode* a, ListNode* b) {
+//         return a->val > b->val;
+//     }
+// };
+// This matches because the heap stores ListNode*, so the comparator must compare ListNode*.
+
+// 2. Why a->val > b->val gives min‑heap
+// Default priority_queue in C++ is a max‑heap (largest element at top).
+
+// Comparator decides ordering:
+
+// If comp(a, b) is true → a is considered “after” b.
+
+// For min‑heap:
+
+// We want smaller values to come out first.
+
+// Writing return a->val > b->val means:
+
+// If a is bigger than b, then a goes after b.
+
+// So smaller values bubble up to the top.
+
+// 3. Quick intuition
+// Think of comparator as saying: “Should a go after b?”
+
+// For min‑heap, bigger values should go later → a->val > b->val.
+
+// For max‑heap, smaller values should go later → a->val < b->val.
