@@ -123,6 +123,22 @@ public:
 // Optimized Approach 2: Min-Heap (priority queue): Push the head of each list into a min-heap, repeatedly extract the smallest, advance that list.
 // TC: O(NlogK) => Each of the 𝑁 nodes is pushed/popped once from the heap.Heap operations cost O(logK)
 // SC: O(K) Heap stores at most one node from each list at a time.
+
+// 🔹 Dry run direction (to visualize)
+// Suppose lists are:
+// L1: [1,4,5]
+// L2: [1,3,4]
+// L3: [2,6]
+// Heap initially: [1(L1), 1(L2), 2(L3)]
+// Pop 1(L1) → attach → push 4(L1).
+// Heap: [1(L2), 2(L3), 4(L1)]
+// Pop 1(L2) → attach → push 3(L2).
+// Heap: [2(L3), 3(L2), 4(L1)]
+// … continue until heap empty.
+// 👉 So the direction is:
+// Push all heads → repeatedly pop smallest → attach → push its next → continue.
+
+
 class Solution {
 public:
     struct Compare {
