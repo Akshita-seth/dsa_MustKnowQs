@@ -1,5 +1,9 @@
 // https://www.youtube.com/watch?v=NKJnHewiGdc&t=563s
 
+// 👉 Rule of thumb:
+// If the heap stores pointers, comparator takes them as plain pointers (T*).
+// If the heap stores objects (like pair, int, string), comparator takes them as const T&.
+
 // 1. Insertion: O(logN)
 // 2. Deletion: O(logN)
 // 3. Heapify (puts just one node to the correct position): O(logN) 
