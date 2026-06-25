@@ -1,0 +1,63 @@
+// Problem: Topo Sort using DFS
+// https://www.geeksforgeeks.org/problems/topological-sort/1
+
+
+// TC: O(V + E), each vertex is visited exactly once, and each directed edge is explored exactly once during the DFS traversal. The cost of visiting all vertices is O(V) and the cost of exploring all edges is O(E). Since both happen sequentially and not nested, the total time complexity is O(V + E).
+// For example, if V = 6 and E = 6, the DFS will make exactly 6 vertex visits and 6 edge explorations, leading to a total of O(6 + 6) = O(12), which simplifies to O(V + E).
+// SC: O(V + E), The space complexity comes from three parts: the adjacency list (which stores all vertices and edges, taking O(V + E) space), the visited array (O(V) space), and the recursion stack (O(V) in the worst case for a DFS if the graph is like a chain). The stack used to store the topological order will also take O(V) space. Therefore, the dominant space usage is O(V + E). 
+// For example, if V = 6 and E = 6, the adjacency list will store all 6 vertices and 6 edges (O(12) space), the visited array takes O(6), and the recursion stack may take up to O(6) in the worst case, keeping the total within O(V + E).
+
+
+class Solution {
+  public:
+    void dfs(int node, vector<vector<int>>& adj, int visited[], stack<int>& st)
+    {
+        visited[node] = 1;
+        
+        for(auto adjNode : adj[node])
+        {
+            if(!visited[adjNode])
+              dfs(adjNode,adj,visited,st);
+        }
+        
+        st.push(node);
+    }
+    vector<int> topoSort(int V, vector<vector<int>>& edges) {
+        // DFS approach
+        vector<vector<int>> adj(V);
+        for(auto e:edges)
+          adj[e[0]].push_back(e[1]);
+         
+         int visited[V] = {0};
+         // or vector<int> visited(V, 0);
+         stack<int> st;
+         
+         for(int i=0; i<V; i++)
+         {
+             if(!visited[i])
+               dfs(i,adj,visited,st);
+         }
+        vector<int> topo;
+        while(!st.empty())
+        {
+            topo.push_back(st.top());
+            st.pop();
+        }
+    
+    return topo;
+    }
+};
+
+
+// Validation check part of code for topo sort
+
+vector<int> position;
+    for(int i=0; i<V; i++)
+    position[topo[i]] = i;
+    
+    for(auto e:edges)
+    {
+        if(position[e[0]] > position[e[1]]);
+        return false;
+    }
+    return true;
