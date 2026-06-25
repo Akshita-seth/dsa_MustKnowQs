@@ -53,3 +53,6 @@ Rule of Thumb
 - Use vector<int>& when you need to modify
 - Avoid plain vector<int> unless you explicitly want a copy
 
+E Adjacency list construction in Graph
+- Right now you wrote vector<vector<int>> adj; but didn’t size it. You need vector<vector<int>> adj(V); so each node has its own list.
+- Otherwise, adj[e[0]].push_back(e[1]); will segfault.
