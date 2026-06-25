@@ -56,3 +56,58 @@ public:
         return safeNodes;
     }
 };
+
+
+
+
+// Topo Sort BFS approach
+// TC:  O(V + E) + O(N log N), [building adjRev & performing BFS and sorting safeNodes]
+// SC: O(V+E), [indegree, queue & safeNodes O(V) each and adjRev O(V+E)] 
+
+
+class Solution {
+public:
+    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
+        int V=graph.size();
+        vector<vector<int>> adjRev(V);
+        vector<int> indegree(V,0);
+        for(int i=0; i<V;i++)
+        {
+            // origially i -> it
+            // reversed it -> i
+            for(auto it: graph[i])
+            {
+                adjRev[it].push_back(i);
+                indegree[i]++;
+            }
+        }
+
+        vector<int> safeNodes;
+        queue<int> q;
+        for(int i=0; i<V; i++)
+        {
+            if(indegree[i] == 0)
+            q.push(i);
+        }
+
+        while(!q.empty())
+        {
+            int node = q.front();
+            q.pop();
+            safeNodes.push_back(node);
+
+            for(auto adjNode: adjRev[node])
+            {
+                indegree[adjNode]--;
+                if(indegree[adjNode] == 0)
+                q.push(adjNode);
+            }
+        }
+        sort(safeNodes.begin(), safeNodes.end());
+        return safeNodes;
+    }
+};
+
+
+
+
