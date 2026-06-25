@@ -2,6 +2,12 @@
 // https://www.geeksforgeeks.org/problems/topological-sort/1
 
 
+//Intuition
+// DFS explores nodes deeply; when a node finishes (all its descendants are processed), you push it onto a stack.
+// This “finish time” captures dependency: a node is placed only after all nodes it points to are done.
+// Finally, reversing the stack gives the correct topological order — parents before children, respecting all edges.
+// 👉 Think of it as: “DFS ensures you don’t schedule a task until all tasks depending on it are completed. The reverse of finishing times is the valid schedule.”
+
 // TC: O(V + E), each vertex is visited exactly once, and each directed edge is explored exactly once during the DFS traversal. The cost of visiting all vertices is O(V) and the cost of exploring all edges is O(E). Since both happen sequentially and not nested, the total time complexity is O(V + E).
 // For example, if V = 6 and E = 6, the DFS will make exactly 6 vertex visits and 6 edge explorations, leading to a total of O(6 + 6) = O(12), which simplifies to O(V + E).
 // SC: O(V + E), The space complexity comes from three parts: the adjacency list (which stores all vertices and edges, taking O(V + E) space), the visited array (O(V) space), and the recursion stack (O(V) in the worst case for a DFS if the graph is like a chain). The stack used to store the topological order will also take O(V) space. Therefore, the dominant space usage is O(V + E). 
