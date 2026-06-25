@@ -67,3 +67,53 @@ vector<int> position;
         return false;
     }
     return true;
+
+
+
+// ✅ DFS Topological Sort with Cycle Check
+
+class Solution {
+public:
+    bool dfs(int node, vector<vector<int>>& adj, vector<int>& visited, vector<int>& pathVis, stack<int>& st) {
+        visited[node] = 1;
+        pathVis[node] = 1;  // mark node in current recursion stack
+
+        for (auto adjNode : adj[node]) {
+            if (!visited[adjNode]) {
+                if (dfs(adjNode, adj, visited, pathVis, st)) 
+                    return true; // cycle found
+            } else if (pathVis[adjNode]) {
+                return true; // back-edge → cycle
+            }
+        }
+
+        pathVis[node] = 0;  // remove from recursion stack
+        st.push(node);
+        return false;
+    }
+
+    vector<int> topoSort(int V, vector<vector<int>>& edges) {
+        vector<vector<int>> adj(V);
+        for (auto e : edges)
+            adj[e[0]].push_back(e[1]);
+
+        vector<int> visited(V, 0), pathVis(V, 0);
+        stack<int> st;
+
+        for (int i = 0; i < V; i++) {
+            if (!visited[i]) {
+                if (dfs(i, adj, visited, pathVis, st)) {
+                    // cycle detected → return empty topo order
+                    return {};
+                }
+            }
+        }
+
+        vector<int> topo;
+        while (!st.empty()) {
+            topo.push_back(st.top());
+            st.pop();
+        }
+        return topo;
+    }
+};
