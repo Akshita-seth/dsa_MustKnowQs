@@ -18,7 +18,7 @@
 // If dist[u] was still ∞ (unreachable), relaxation does nothing — which is correct, because that path doesn’t exist from source.
 // Because topo order ensures edges are processed only after their source node’s distance is finalized, every edge gets relaxed exactly once in the right order.
 
-
+// DFS topo soln
 // TC: O(V+E) , topo sort and relaxation each took O(V+E)
 // SC: O(V+E) , Adjacency list + stack + distVec + visited
 
@@ -91,3 +91,123 @@ class Solution {
 };
 
 
+// BFS topo soln:
+
+class Solution {
+public:
+    vector<int> shortestPath(int V, int E, vector<vector<int>>& edges) {
+        // Step 1: Build adjacency list + indegree
+        vector<vector<pair<int,int>>> adj(V);
+        vector<int> indegree(V, 0);
+        
+        for(auto e : edges) {
+            int u = e[0], v = e[1], wt = e[2];
+            adj[u].push_back({v, wt});
+            indegree[v]++;
+        }
+        
+        // Step 2: Kahn’s Algorithm for Topo Sort (BFS)
+        queue<int> q;
+        for(int i = 0; i < V; i++) {
+            if(indegree[i] == 0) q.push(i);
+        }
+        
+        vector<int> topo;
+        while(!q.empty()) {
+            int node = q.front();
+            q.pop();
+            topo.push_back(node);
+            
+            for(auto adjNode : adj[node]) {
+                int v = adjNode.first;
+                indegree[v]--;
+                if(indegree[v] == 0) q.push(v);
+            }
+        }
+        
+        // Step 3: Relax edges in topo order (no guard)
+        vector<int> dist(V, 1e9);
+        dist[0] = 0; // source = 0
+        
+        for(int u : topo) {
+            for(auto adjNode : adj[u]) {
+                int v = adjNode.first;
+                int wt = adjNode.second;
+                if(dist[v] > dist[u] + wt) {
+                    dist[v] = dist[u] + wt;
+                }
+            }
+        }
+        
+        // Step 4: Prepare answer (-1 for unreachable)
+        vector<int> ans(V, -1);
+        for(int i = 0; i < V; i++) {
+            if(dist[i] < 1e9) ans[i] = dist[i];
+        }
+        return ans;
+    }
+};
+
+
+
+
+
+
+// with a micro optimization => A guard if(dist[u] != 1e9) guard.
+//  unreachable node in topo order are not processed
+class Solution {
+public:
+    vector<int> shortestPath(int V, int E, vector<vector<int>>& edges) {
+        // Step 1: Build adjacency list + indegree
+        vector<vector<pair<int,int>>> adj(V);
+        vector<int> indegree(V, 0);
+        
+        for(auto e : edges) {
+            int u = e[0], v = e[1], wt = e[2];
+            adj[u].push_back({v, wt});
+            indegree[v]++;
+        }
+        
+        // Step 2: Kahn’s Algorithm for Topo Sort (BFS)
+        queue<int> q;
+        for(int i = 0; i < V; i++) {
+            if(indegree[i] == 0) q.push(i);
+        }
+        
+        vector<int> topo;
+        while(!q.empty()) {
+            int node = q.front();
+            q.pop();
+            topo.push_back(node);
+            
+            for(auto adjNode : adj[node]) {
+                int v = adjNode.first;
+                indegree[v]--;
+                if(indegree[v] == 0) q.push(v);
+            }
+        }
+        
+        // Step 3: Relax edges in topo order
+        vector<int> dist(V, 1e9);
+        dist[0] = 0; // source = 0
+        
+        for(int u : topo) {
+            if(dist[u] != 1e9) { // only relax if reachable
+                for(auto adjNode : adj[u]) {
+                    int v = adjNode.first;
+                    int wt = adjNode.second;
+                    if(dist[v] > dist[u] + wt) {
+                        dist[v] = dist[u] + wt;
+                    }
+                }
+            }
+        }
+        
+        // Step 4: Prepare answer (-1 for unreachable)
+        vector<int> ans(V, -1);
+        for(int i = 0; i < V; i++) {
+            if(dist[i] < 1e9) ans[i] = dist[i];
+        }
+        return ans;
+    }
+};
