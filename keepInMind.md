@@ -56,3 +56,9 @@ Rule of Thumb
 E Adjacency list construction in Graph
 - Right now you wrote vector<vector<int>> adj; but didn’t size it. You need vector<vector<int>> adj(V); so each node has its own list.
 - Otherwise, adj[e[0]].push_back(e[1]); will segfault.
+
+  D Not accepting the return value from the helper fn in any variable in the fn call statement
+  - It’s not an error because C++ allows discarding return values unless explicitly marked otherwise.
+   [[nodiscard]] bool dfs(...);
+     Whether you use the return value or rely on side effects is purely a design choice. In your code, the safe array is the mechanism you’ve chosen to capture results, so ignoring the bool is intentional and valid.
+  
