@@ -3,6 +3,13 @@
 
 
 // Topo Sort BFS Approach
+// TC: O(N*len)+O(V+E), where N is the number of words in the dictionary, 
+// ‘len’ is the length up to the index where the first inequality occurs, K or V = no. of nodes i.e. number of unique characters (≤ 26 for lowercase letters)
+// and E = no. of edges(≤ number of character comparisons, so ≤ N*L.
+// O(N*len) -> building adj list You compare each pair of consecutive words.
+// For each pair, you may scan up to the length of the shorter word. Total work = sum of lengths of all words
+// O(V+E) -> Topo Sort. Each character (node) is processed once. Each edge is processed once when indegree is decremented.
+// SC: O(V+E) + O(V) where adj[] is O(V+E) and Indegree array, present array, queue: Each is size O(V)
 
 class Solution {
   public:
