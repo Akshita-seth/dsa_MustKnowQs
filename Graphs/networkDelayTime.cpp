@@ -2,6 +2,12 @@
 // https://leetcode.com/problems/network-delay-time/submissions/2049999101/
 
 
+// Dijkstra's algo approach
+// TC: O((E + V) * log V), Each edge is relaxed atmost once. Priority queue operations take log V time.
+// SC: O(V+E), We store the adjacency list, an in-degree array and a priority queue in order to find the minimum time required for every node in the network to receive the signal.
+
+//  the phrase “minimum time for all nodes” really means: the earliest time at which every node has received the signal, which is the maximum shortest-path distance.
+
 class Solution {
 public:
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
