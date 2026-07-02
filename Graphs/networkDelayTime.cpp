@@ -7,6 +7,11 @@
 // SC: O(V+E), We store the adjacency list, an in-degree array and a priority queue in order to find the minimum time required for every node in the network to receive the signal.
 
 //  the phrase “minimum time for all nodes” really means: the earliest time at which every node has received the signal, which is the maximum shortest-path distance.
+// Here’s how Dijkstra helps:
+// Start from the source computer.
+// Use Dijkstra to calculate the shortest time to reach every other computer.
+// The maximum of these times is the total delay (because the slowest computer determines when the network is fully updated).
+
 
 class Solution {
 public:
