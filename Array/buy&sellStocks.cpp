@@ -4,8 +4,8 @@
 
 
 
-
-// your current code only compares adjacent prices (prices[i+1] - prices[i]). That will catch small day‑to‑day changes, 
+// DND
+// this code only compares adjacent prices (prices[i+1] - prices[i]). That will catch small day‑to‑day changes, 
 // but it misses the real essence of the Best Time to Buy and Sell Stock problem: you’re allowed to buy on one day and sell on any later day, not just the next one.
 
 //BFS: TC(N^2) SC:O(1) 
