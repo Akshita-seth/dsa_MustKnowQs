@@ -3,6 +3,11 @@
 // Pattern of Optimization: This is a classic greedy pattern: make the best local decision (track min price) to achieve the global optimum (max profit).
 
 
+
+
+// your current code only compares adjacent prices (prices[i+1] - prices[i]). That will catch small day‑to‑day changes, 
+// but it misses the real essence of the Best Time to Buy and Sell Stock problem: you’re allowed to buy on one day and sell on any later day, not just the next one.
+
 //BFS: TC(N^2) SC:O(1) 
 //Approach: Explore all possible ways to buy and sell stock. Nested i and j.
 
