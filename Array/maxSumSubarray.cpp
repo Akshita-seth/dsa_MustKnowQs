@@ -26,7 +26,9 @@ public:
 // OS: TC: O(N), SC:O(1)
 // If extending makes the sum worse, you “slide” the window start forward to i.
 // So Kadane’s is a greedy sliding window that shrinks instantly when the prefix sum goes negative.
-
+// If you start the loop at i = 0, you’d reprocess the first element unnecessarily.
+// Worse, you’d compare nums[0] against curr + nums[0], which is like adding it twice.
+// Wrong sum (nums[0] twice) gets carried forward
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
