@@ -32,10 +32,13 @@ public:
             }
         }
         // Convert set to vector
-        vector<vector<int>> ans(st.begin(), st.end());
+        vector<vector<int>> ans(st.begin(), st.end()); // Explained below
         return ans;
     }
 };
+//st.begin(), st.end() are iterators over the set.
+// The vector constructor can take a range of iterators and copy all elements into the new vector.
+// So this directly builds ans as a vector<vector<int>> from the contents of the set.
 
 
 // Better: Hashset use to find third number
