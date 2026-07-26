@@ -95,14 +95,14 @@ class Solution {
                 //Case 2
                 int leftCount = 1, rightCount = 1;
                 //Duplicates on the left
-                while(i+1 < j && arr[i] == arr[i+1])
+                while(i+1 < j && arr[i] == arr[i+1])  //This check is befire incrementing i
                 {
                     leftCount++;
                     i++;    
                 }
                 
                 //Duplicates on the right
-                while(j-1 > i && arr[j] == arr[j-1])
+                while(j-1 > i && arr[j] == arr[j-1]) //This check is before decrementing j
                 {
                     rightCount++;
                     j--;
