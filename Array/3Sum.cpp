@@ -71,7 +71,7 @@ public:
             }
         }
         // Convert set to vector
-        return vector<vector<int>>(ans.begin(), ans.end());
+        return vector<vector<int>> result(ans.begin(), ans.end());
     }
 };
 
