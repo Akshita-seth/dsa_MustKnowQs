@@ -93,6 +93,7 @@ public:
         int n=nums.size();
         sort(nums.begin(),nums.end());
         for(int i=0;i<n;i++){
+            // REMEMBER this check is AFTER incrementing i
             if(i>0 && nums[i]==nums[i-1]) continue; //avoiding duplicates (substitutes using set data structure)
             int j=i+1;
             int k=n-1;
@@ -103,6 +104,7 @@ public:
                 else{
                     ans.push_back({nums[i],nums[j],nums[k]});
                     j++; k--;
+                    // REMEMBER these checks are AFTER updating j and k
                     while(j<k && nums[j]==nums[j-1]) j++;  //avoiding duplicates (substitutes using set data structure)
                     while(j<k && nums[k]==nums[k+1]) k--;
                 }
