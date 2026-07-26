@@ -4,7 +4,24 @@
 //https://takeuforward.org/data-structure/two-sum-check-if-a-pair-with-given-sum-exists-in-array
 
 //Brute Force Soln: TC: O(n^2) SC: O(1)
-//Approch: Nested loop i and j
+//Approch: Nested loop i and j, Do not use the same element twice hence, j starts from i+1
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        int n = nums.size();
+        for(int i=0; i<n; i++)
+        {
+            for(int j=i+1; j<n; j++)
+            {
+                if(nums[i]+nums[j] == target)
+                return {i,j};
+            }
+        }
+        return {};
+    }
+};
+
 
 //Better Soln: TC: O(n) SC: O(n)
 // TC Paradox: if ordered map: O(N*logN) [no collision], if unordered map: O(N*1) [mostly i.e. best and avg TC] but if collision happens [happens once in a blue moon] then O(N*N)
@@ -50,8 +67,9 @@ public:
 };
 
 
-//Counting number of pairs with sum equal to target given sorted array (same compexities as without counting pairs version)
+//Counting number of pairs with sum equal to target given sorted array (same complexities as without counting pairs version)
 //https://www.geeksforgeeks.org/problems/pair-with-given-sum-in-a-sorted-array4940/1
+// TC: 𝑂(nlogn) if sorting is needed, otherwise O(n), SC: O(1)
 
 class Solution {
   public:
@@ -105,7 +123,7 @@ class Solution {
 };
 
 // Counting number of pairs when unsorted array given (Hashmap technique)
-
+// TC: O(2n) building map, iterating map. Hashmap operations are O(1), SC: O(n)
 
 class Solution {
   public:
