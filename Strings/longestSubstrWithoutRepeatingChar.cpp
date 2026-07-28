@@ -64,3 +64,26 @@ public:
 };
 
 // OS 2:
+// TC: O(n) SC: O(1)
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int n = s.size();
+        int maxWindow = 0;
+        int start = 0, end =0;
+        // Initially all characters ar unvisited
+        vector<int> lastIndex(256, -1);
+        while(end < n) {
+            if(lastIndex[s[end]] != -1)
+            {
+                if(start <= lastIndex[s[end]])
+                start = lastIndex[s[end]] + 1;
+            }
+            lastIndex[s[end]] = end;
+            maxWindow = max(maxWindow, end-start+1);
+            end++;
+        }
+        return maxWindow;
+    }
+};
