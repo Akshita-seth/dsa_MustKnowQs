@@ -39,5 +39,28 @@ ans = max(ans, j - i + 1);
 if(ans == j - i + 1) longest = s.substr(i, ans);
 
 
-// BS:
+// OS 1:
+// TC: O(n) SC: O(1)
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int n = s.size();
+        int maxWindow = 0;
+        int left = 0, right =0;
+        // Initially all characters ar unvisited
+        vector<bool> visited(256, false);
+        while(right < n) {
+            while(visited[s[right]] == true)
+            {
+                visited[s[left]] = false;
+                left++;
+            }
+            visited[s[right]] = true;
+            maxWindow = max(maxWindow, right-left+1);
+            right++;
+        }
+        return maxWindow;
+    }
+};
 
+// OS 2:
