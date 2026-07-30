@@ -58,4 +58,38 @@ vector<vector<string>> anagrams(vector<string> &arr) {
         return anagrams;
     }
 
-// OS: 
+// OS: TC: O(n*k) SC: O(n*k)
+
+class Solution {
+public:
+    string getHash(string s)
+    {
+        vector<int> freq(26, 0);
+        for(char ch: s)
+         freq[ch - 'a'] += 1;
+        string hash = "";
+        for(int i=0; i<26; i++)
+        {
+            hash.append(to_string(freq[i]));
+            hash.append("#");
+        }
+        return hash;
+    } 
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        int n = strs.size();
+        vector<vector<string>> anagrams;
+        unordered_map<string, int> mpp;
+        for(int i=0; i<n; i++)
+        {
+            string key = getHash(strs[i]);
+
+            if(mpp.find(key) == mpp.end())
+            {
+                mpp[key] = anagrams.size();
+                anagrams.push_back({});
+            }
+            anagrams[mpp[key]].push_back(strs[i]);
+        }
+        return anagrams;
+    }
+};
