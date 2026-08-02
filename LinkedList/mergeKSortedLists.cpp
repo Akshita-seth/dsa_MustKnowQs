@@ -6,12 +6,26 @@
 //Or use a min-heap to always pick the smallest head efficiently.
 
 // BFS: Collect all nodes into a vector, sort, rebuild.
-//TC: O(NlogN), SC: O(N)
+//TC: O(N*N), SC: O(N)
 
 
 
-// Approach: Pairwise Merge.
-// TC: O(NK), SC: O(1)
+// Approach: Sequential Merge
+// TC:O(NK) => N is total number of nodes across all lists, K is number of lists SC: O(1) 
+// The problem: each time, the merged list grows larger, so later merges are more expensive.
+// - Worst case (all lists of equal size, about N/k nodes each):
+// - Merge 1: O(2N/k)
+// - Merge 2: O(3N/k)
+// - Merge 3: O(4N/k)
+// - …
+// - Merge (k-1): O(N)
+
+// Total cost ≈
+
+// (N/k) * (2 + 3 + 4 + … + k)  
+// = (N/k) * (k(k+1)/2)  
+// ≈ O(Nk)
+
 
 /**
  * Definition for singly-linked list.
@@ -65,7 +79,7 @@ public:
     }
 };
 
-// Optimized Approach 1: Divide & Conquer: Merge lists in pairs recursively (like merge sort).
+// Optimized Approach 1:Pairwise Merge => Divide & Conquer: Merge lists in pairs recursively (like merge sort).
 // TC: O(NlogK) where N = total number of nodes across all lists, k = number of lists.
 // Each merge operation (merge2Lists) costs O(n) where n is the total number of nodes across the lists being merged.
 //The recursion splits the vector of lists in half each time → recursion depth is O(log k). At each level of recursion, all nodes are merged once.
@@ -93,6 +107,9 @@ public:
         }
         curr = curr->next;
         }
+        
+        // curr->next = (l1 ? l1 : l2);
+        
         if(list1)
         curr->next = list1;
         else
@@ -108,7 +125,8 @@ public:
         if(lists.size() == 1)
         return lists[0];
         
-        int mid = lists.size() / 2; //first iterator-> INCLUSIVE & second iterator-> exclusive
+        int mid = lists.size() / 2; 
+        //first iterator-> INCLUSIVE & second iterator-> exclusive
         vector<ListNode*> leftList(lists.begin(), lists.begin() + mid);
         vector<ListNode*> rightList(lists.begin() + mid, lists.end());
         ListNode* right = mergeKLists(rightList);
@@ -118,6 +136,75 @@ public:
     }
 };
 
+
+// Complexity of Pairwise Merge (Divide & Conquer)
+
+// - **Time Complexity:** O(N log k)  
+//   - Each merge operation (`merge2Lists`) costs O(n), where n is the total number of nodes across the lists being merged.  
+//   - The recursion splits the vector of lists in half each time → recursion depth is O(log k).  
+//   - At each level of recursion, all nodes are merged once.  
+//   - Therefore, total time = O(N log k).
+
+// - **Space Complexity:**  
+//   - Recursion stack depth = O(log k).  
+//   - Temporary vectors when splitting (`leftList`, `rightList`) → each copy costs O(k), but overall bounded by O(k) at each level.  
+//   - So space = O(k) with vector slicing, or O(log k) if you avoid slicing and recurse with indices.
+
+// ### Layman’s Explanation
+// Think of it like a **tournament bracket**:
+// - You start with k players (lists).
+// - In round 1, they play matches in pairs → k/2 winners.
+// - In round 2, those winners play again → k/4 winners.
+// - This continues until one champion (the final merged list) remains.
+
+// At each round, **every player participates once**, so all N nodes are touched.  
+// The number of rounds is about **log₂(k)** (because the group halves each time).  
+// So each node gets processed log k times → total work = N × log k.
+
+// ### Summary
+// - **TC:** O(N log k)  
+// - **SC:** O(k) with slicing, [optimized to O(log k) if using indices +> SEE BELOW]
+
+
+class Solution {
+public:
+    // Merge two sorted linked lists
+    ListNode* merge2Lists(ListNode* l1, ListNode* l2) {
+        ListNode dummy;
+        ListNode* tail = &dummy;
+
+        while (l1 && l2) {
+            if (l1->val < l2->val) {
+                tail->next = l1;
+                l1 = l1->next;
+            } else {
+                tail->next = l2;
+                l2 = l2->next;
+            }
+            tail = tail->next;
+        }
+        tail->next = (l1 ? l1 : l2);
+        return dummy.next;
+    }
+
+    // Recursive helper using indices
+    ListNode* mergeRange(vector<ListNode*>& lists, int left, int right) {
+        if (left > right) return nullptr;
+        if (left == right) return lists[left];
+
+        int mid = left + (right - left) / 2;
+        ListNode* l1 = mergeRange(lists, left, mid);
+        ListNode* l2 = mergeRange(lists, mid + 1, right);
+
+        return merge2Lists(l1, l2);
+    }
+
+    // Main function
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        if (lists.empty()) return nullptr;
+        return mergeRange(lists, 0, lists.size() - 1);
+    }
+};
 
 
 // Optimized Approach 2: Min-Heap (priority queue): Push the head of each list into a min-heap, repeatedly extract the smallest, advance that list.
