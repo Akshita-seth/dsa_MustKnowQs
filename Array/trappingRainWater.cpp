@@ -27,7 +27,7 @@ int trap(vector<int>& height) {
                 if(height[j] > maxRight)
                 maxRight = height[j];
             }
-            total += min(maxLeft, maxRight) - height[i];
+            total += min(maxLeft, maxRight) - height[i];  //(min(maxLeft, maxRight) - height[i]) * width
         }
         return total;
     }
@@ -52,7 +52,7 @@ public:
                 if(height[left] >= maxLeft)
                 maxLeft = height[left];
                 else
-                totalWater+= maxLeft - height[left];
+                totalWater+= maxLeft - height[left]; // (maxLeft - height[left])*width;
 
                 left++;
             }
@@ -61,7 +61,7 @@ public:
                 if(height[right] >= maxRight)
                 maxRight = height[right];
                 else
-                totalWater+= maxRight - height[right];
+                totalWater+= maxRight - height[right];   // (maxRight - height[right])*width;
 
                 right--;
             }
