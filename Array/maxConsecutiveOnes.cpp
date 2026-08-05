@@ -95,30 +95,6 @@ int findMaxConsecutiveOnesII_Brute(vector<int>& nums) {
     return maxLen;
 }
 
-//Better TC: O(N) SC: O(N)
-//Interview phrasing: “I use prefix/suffix arrays to connect runs of 1s across a flipped zero.”
-
-int findMaxConsecutiveOnesII_Prefix(vector<int>& nums) {
-    int n = nums.size();
-    vector<int> left(n,0), right(n,0);
-
-    for (int i = 0; i < n; i++) {
-        if (nums[i] == 1) left[i] = (i>0 ? left[i-1] : 0) + 1;
-    }
-    for (int i = n-1; i >= 0; i--) {
-        if (nums[i] == 1) right[i] = (i<n-1 ? right[i+1] : 0) + 1;
-    }
-
-    int maxLen = 0;
-    for (int i = 0; i < n; i++) {
-        if (nums[i] == 0) {
-            int len = (i>0 ? left[i-1] : 0) + 1 + (i<n-1 ? right[i+1] : 0);
-            maxLen = max(maxLen, len);
-        }
-    }
-    return maxLen == 0 ? n : maxLen; // handle all-ones case
-}
-
 
 
 // Optimized solutions [Give in interviews]
