@@ -9,7 +9,7 @@
 
 // Total Water (with width n)=TotalWater (width=1)×𝑛
 
-// BFS: Taking current element i, callc maxLeft and maxRight each time with j loop, then calc total water: total += min(maxLeft, maxRight) - height[i];
+// BFS: Taking current element i, calc maxLeft and maxRight each time with j loop, then calc total water: total += min(maxLeft, maxRight) - height[i];
 // TC: O(n^2)  SC:O(1)
 
 int trap(vector<int>& height) {
@@ -82,19 +82,19 @@ int trap(vector<int>& height) {
             {
                 if(height[left] > maxLeft)
                 maxLeft = height[left];
-                else
+                else{
                     total += maxLeft - height[left];
                     left++;
-                             
+                }          
             }
             else
             {
                 if(height[right] > maxRight)
                 maxRight = height[right];
-                else
+                else{
                     total += maxRight - height[right];
                     right--;
-                     
+                }
             }
         }
         return total;
