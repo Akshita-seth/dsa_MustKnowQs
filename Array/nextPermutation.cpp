@@ -9,7 +9,61 @@
 // The next permutation is simply the next arrangement in the sorted order. 
 // If the current arrangement is the last in the list then display the first permutation (smallest permutation).
 
-// OS: 
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void permute(vector<int>& nums, int l, int r, vector<vector<int>>& all) {
+    if (l == r) {
+        all.push_back(nums);
+        return;
+    }
+    for (int i = l; i <= r; i++) {
+        swap(nums[l], nums[i]);
+        permute(nums, l + 1, r, all);
+        swap(nums[l], nums[i]); // backtrack
+    }
+}
+
+vector<int> nextPermutationBrute(vector<int>& nums) {
+    vector<vector<int>> all;
+    permute(nums, 0, nums.size() - 1, all);
+
+    sort(all.begin(), all.end()); // sort all permutations
+
+    // find current permutation
+    auto it = find(all.begin(), all.end(), nums);
+
+    if (it == all.end()) return nums; // safety check
+    if (next(it) == all.end()) {
+        return all.front(); // wrap around to smallest
+    } else {
+        return *next(it);   // next permutation in sorted order
+    }
+}
+
+int main() {
+    vector<int> nums = {1, 2, 3};
+    vector<int> res = nextPermutationBrute(nums);
+
+    for (int x : res) cout << x << " ";
+    return 0;
+}
+
+
+
+// OS: 1
+
+// Function to find the next permutation
+void nextPermutation(vector<int>& arr) {
+
+    // Rearranges elements into the next lexicographical order
+    // If already last permutation, rearranges to the smallest
+    next_permutation(arr.begin(), arr.end());
+}
+
+// OS 2: 
 // 1st Observation is: Longer prefix match find so where's the break point? move from right to left -> if (arr[i] < arr[i+1])
 // 2nd: To replace arr[i], move from right and find num just greater than arr[i], i.e. next greater
 // 3rd: Now place the remaining places with the remaining numbers in ascending sorted order, so that it's nearest to the given array
