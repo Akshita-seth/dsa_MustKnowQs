@@ -9,6 +9,17 @@
 // The next permutation is simply the next arrangement in the sorted order. 
 // If the current arrangement is the last in the list then display the first permutation (smallest permutation).
 
+// Yes — since nums is passed by reference into the recursive permute() function, the swaps inside recursion do temporarily change the original vector.
+// But here’s the key:
+// We backtrack after each recursive call by swapping back (swap(nums[l], nums[i]) again).
+// This ensures that when recursion unwinds, the vector returns to its previous state.
+// Without backtracking, the original nums would indeed end up scrambled after recursion.
+
+// So the temporary mutation is necessary to explore each branch, but the backtracking step restores the original state.
+// 👉 If you want to avoid touching the original array at all, you could pass nums by value (copy) into permute(). 
+// That way, each recursive call works on its own copy. But that’s less efficient
+
+
 
 
 #include <bits/stdc++.h>
