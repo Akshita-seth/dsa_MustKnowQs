@@ -12,7 +12,7 @@
 // BFS: Recursive approacch. Calculating the max depth of both left and right subtrees at each node and treating each node as a turning point. Hence, the max diameter is LH + RH + 1, 1 for the turning point node.
 // TC: O(N*N) where N is the number of nodes in the Binary Tree.
 // The extra time is because it keeps recalculating the depth of subtrees again and again.
-// SC: O(1)
+// SC: SC: O(H) → where H is the height of the tree. In worst case (skewed tree)=> H = N
 
 class Solution {
     int maxi=0;
@@ -44,7 +44,7 @@ public:
 
 //Optimized:
 // TC: O(N) 
-// SC: Recursion stack space only
+// SC: SC: O(H) → where H is the height of the tree. In worst case (skewed tree)=> H = N
 
 class Solution {
     // int diam = 0; //either keep diam as a global variable or do like below, i.e. pass by reference so that modification happens in the original diam variable
