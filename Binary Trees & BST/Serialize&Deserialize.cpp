@@ -14,6 +14,9 @@
 // 3. int num = stoi("25")
 // 4. string_name.sppend(string); no need of "" inside the append ()
 
+// You only push children if they’re non-null. Its' a mistake!
+// For proper serialization, you need to push both left and right children even if they’re null. Otherwise, you lose structure information.
+
 
 // TC: O(N)
 // serialize function: O(N), where N is the number of nodes in the tree. This is because the function performs a level-order traversal of the tree, visiting each node once.
@@ -94,3 +97,32 @@ public:
 // Your Codec object will be instantiated and called as such:
 // Codec ser, deser;
 // TreeNode* ans = deser.deserialize(ser.serialize(root));
+
+
+
+// alternate for Serialize
+
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        string ser = "";
+        if (!root)
+            return ser;
+        queue<TreeNode*> q;
+        q.push(root);
+
+        while (!q.empty()) {
+            int size = q.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode* node = q.front();
+                q.pop();
+                if (node == NULL)
+                    ser += "nullptr,";
+                else {
+                    ser += to_string(node->val) + ",";
+                    q.push(node->left);
+                    q.push(node->right);
+                }
+            }
+        }
+        return ser;
+    }
