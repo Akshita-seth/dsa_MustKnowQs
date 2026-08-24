@@ -22,14 +22,14 @@ public:
         int n1 = nums1.size();
         int n2 = nums2.size();
 
-        vector<int> ans(n1);
+        vector<int> ans(n1);  // Don't Forget to initialise the size, bcz below directly accessing indices
 
         for (int i = 0; i < n1; i++) {
             for (int j = 0; j < n2; j++) {
                 if (nums2[j] == nums1[i]) {
                     int greater = checkGreater(nums2, j, n2);
                     ans[i] = greater;
-                    break;
+                    break;  // Break is imp, otherwise inconsisten NGEs will be stored
                 }
             }
         }
