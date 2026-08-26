@@ -105,3 +105,38 @@ int trap(vector<int>& height) {
 // 👉 If left++ / right-- are placed inside the water‑calculation else, the pointer moves only when water is added. 
 //If they’re placed outside, the pointer moves every iteration — but it’s still correct because when boundaries are updated, water at that index is zero, so skipping forward is safe.
 // That’s the invariant: each index is processed once, either by updating boundary or adding water, so unconditional pointer movement still yields the same total.
+
+
+
+
+// OS Uding Stack: TC: O(N) SC: O(N)
+// When a taller bar comes, you pop the valley bottom and compute trapped water using the min(left boundary, right boundary) – valley height.
+// The trapped water is defined by the difference in heights, not the bar itself
+//  You’re trying to measure volume of water trapped in valleys between bars.
+
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n = height.size();
+        stack<int> st;
+        int water=0;
+
+        for(int i=0; i<n; i++)
+        {
+            
+            while(!st.empty() && height[st.top()] < height[i])
+            {
+                int top = st.top();
+                st.pop();
+                if(st.empty()) break;
+                // rightBoundary - leftBoundary - 1
+                int dist = i - st.top() - 1;
+                //min(rightB, leftB) - valleyHeight
+                int boundedHeight = min(height[i], height[st.top()])-height[top];
+                water += dist*boundedHeight;
+            }
+            st.push(i);
+        }
+        return water;
+    }
+};
