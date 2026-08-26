@@ -1,5 +1,6 @@
 // Problem: Largest Rectangle in Histogram
 //https://leetcode.com/problems/largest-rectangle-in-histogram/
+// https://www.youtube.com/watch?v=Bzat9vgD0fs
 
 
 // BFS:  TC: O(N^2), SC: O(1)
@@ -33,7 +34,7 @@ public:
     }
 };
 
-// 2nd version: using width and ch
+// 2nd version: using width and h
 int getMaxArea(vector<int> &arr){
     int n = arr.size();
     int res = 0;
@@ -131,6 +132,49 @@ public:
         {
             int area = heights[i] * (nse[i] - pse[i] - 1);
             maxi = max(area, maxi);
+        }
+        return maxi;
+    }
+};
+
+
+// OS: One stack solution
+// TC: O(N) for traversal + O(N) for every every index altogether once
+// SC: O(N) just the stack
+
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        int n = heights.size();
+        int maxi=0;
+        stack<int> st;
+        int nse, pse;
+
+        // FORMULA: heights[i] * (nse - pse - 1)
+        for(int i=0;i<n; i++)
+        {
+             while(!st.empty() && heights[st.top()] > heights[i])
+             {
+                int element = st.top(); // top before popping is the element to be touched i.e. computed
+                st.pop();
+
+                //nse computation is done while coming back, i.e. while popping since the right of taht indec has been seen, found smaller hence being popped
+                nse = i; // Current index is NSE [OFC bcz of that only entered the while loop]
+                pse = st.empty()? -1: st.top(); // after popping get PSE
+                maxi = max(maxi, heights[element] * (nse-pse-1));
+             }
+            st.push(i);
+        }
+        // If elements still left in stack => those els do not hv pse/nse
+        // Hence they are not touched yet
+        
+        while(!st.empty())
+        {
+            nse = n;
+            int element = st.top();
+            st.pop();
+            pse = st.empty()? -1 : st.top();
+            maxi = max(maxi, heights[element] * (nse-pse-1));
         }
         return maxi;
     }
