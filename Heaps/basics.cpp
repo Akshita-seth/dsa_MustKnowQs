@@ -1,4 +1,5 @@
 // https://www.youtube.com/watch?v=NKJnHewiGdc&t=563s
+// https://takeuforward.org/data-structure/introduction-to-priority-queues-using-binary-heaps
 
 // 👉 Rule of thumb:
 // If the heap stores pointers, comparator takes them as plain pointers (T*).
