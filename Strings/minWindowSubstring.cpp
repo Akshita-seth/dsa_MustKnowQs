@@ -87,7 +87,7 @@ public:
             count++;
             freq[s[r]]--; // always decrement
 
-            while(count == n) // O(N) worst case
+            while(count == n) // O(M) worst case
             {
                 if(r-l+1 < minLen)
                 {
