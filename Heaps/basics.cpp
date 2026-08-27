@@ -19,6 +19,26 @@
 //    -> Only the top nodes (few in number) can take O(log n) time.
 // 6. Heap Sort: O(NlogN)
 
+
+// HEAPIFY (Downward Fix)
+// Purpose: Used when a node might violate the heap property because its value is too large compared to its children.
+// Direction: Pushes the node downward until it finds the correct position.
+// Use case:
+// 1. Building a heap from an array (bottom-up).
+// 2. After deleting the root (replace root with last element, then fix down).
+
+
+// Bubble-Up (Upward Fix) 
+while (i != 0 && arr[parent(i)] > arr[i]) {
+    swap(&arr[parent(i)], &arr[i]);
+    i = parent(i);
+}
+// Purpose: Used when a node might violate the heap property because its value is too small compared to its parent.
+// Direction: Moves the node upward until it finds the correct position.
+// Use case: Insertion (new element added at the end, then bubbled up).
+
+
+
 #include<bits/stdc++.h>
 using namespace std;
 
