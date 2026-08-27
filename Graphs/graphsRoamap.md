@@ -51,7 +51,7 @@ Think of it like Google Maps:
 - Roads = edges
 - Road length or travel time = weight
 
-Dijkstra’s algorithm tells you the fastest way to reach every city starting from your home.
+### Dijkstra’s algorithm tells you the fastest way to reach every city starting from your home.
 
 🪜 Step-by-Step Explanation
 Let’s say you want to go from A to all other places:
@@ -76,3 +76,18 @@ Let’s say you want to go from A to all other places:
 - Continue until all nodes are visited.
 
 At the end, you’ll have the shortest distance from A to every other node.
+
+
+### When nd When not to build adj list
+1. Grid problems (Islands, Flood Fill, Surrounded Regions):  
+→ Neighbors are implicit (up/down/left/right). No adjacency list needed.
+
+2. Graph problems given as adjacency matrix (Provinces, Connected Components):  
+→ Neighbors are not implicit. Build adjacency list for efficient traversal.
+
+3. Graph problems given as edge list:  
+→ Always build adjacency list (or adjacency map) because edges are scattered.
+
+✨ Intuition:
+If the structure itself already encodes the neighbors (like a grid), you don’t need an adjacency list.
+If the structure only encodes connections in a less direct way (matrix or edge list), adjacency list makes traversal practical.
