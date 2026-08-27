@@ -1,5 +1,6 @@
 // Problem: Kth Smallest element in array
 // https://www.geeksforgeeks.org/problems/kth-smallest-element5635/1
+// https://www.youtube.com/watch?v=_9F2VgZcvdw&t=824s
 
 //BFS: Sorting
 // TC: O(nlogn)
