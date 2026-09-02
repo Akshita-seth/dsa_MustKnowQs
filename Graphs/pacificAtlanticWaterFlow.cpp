@@ -50,17 +50,20 @@ public:
         vector<vector<bool>> pacific(m, vector<bool>(n,false));
         vector<vector<bool>> atlantic(m, vector<bool>(n,false));
 
-        for(int j=0; j<n; j++)
-        {
-            pacific[0][j] = true;
-            atlantic[m-1][j] = true;
-        }
+        // Iterating row-wise -> Left and right of the island covered   // NO NEED TO MARK BORDER CELLS AS TRUE BEFORE DFS, DFS DOES IT ITSELF
         for(int i=0; i<m; i++)
         {
             pacific[i][0] = true;
             atlantic[i][n-1] = true;
         }
-
+        // Iterating rcolumn-wise -> Top and bottom of the island covered
+        for(int j=0; j<n; j++)
+        {
+            pacific[0][j] = true;
+            atlantic[m-1][j] = true;
+        }                                                  // TILL HERE NO NEED
+        
+        // CALL DFS FOR VISITING THE ISLAND CELLS AND BORDER NEIGHBOURS
         for(int j=0; j<n; j++)
         {
           dfs(m,n,0,j,heights,pacific);
