@@ -9,7 +9,7 @@ using namespace std;
     vector<int> rank, parent;
     DisjointSet(int n)
     {
-        rank.resize(n+1, 0);
+        rank.resize(n+1, 0);   // vector with (n+1) size works for both 0 & 1-based indexeing, only difference is <n (For 0) and <=n (For 1)
         parent.resize(n+1);
         for(int i=0; i<=n; i++)
             parent[i] = i;
