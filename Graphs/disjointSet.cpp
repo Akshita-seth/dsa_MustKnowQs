@@ -31,6 +31,7 @@ using namespace std;
         // always connect smaller rank tree under larger rank tree 
         if(rank[ulp_u] < rank[ulp_v])
           parent[ulp_u] = ulp_v;
+          // NO NEED OF SEPARATE CONDITION FOR EQUAL RANKS, AS WE CAN CONNECT ANY ONE UNDER OTHER AND INCREASE THE RANK OF THAT PARENT BY 1
         else if(rank[ulp_v] < rank[ulp_u])
           parent[ulp_v] = ulp_u;
           // if ranks are same then connect any one under other and increase the rank of that parent by 1
@@ -38,6 +39,24 @@ using namespace std;
             parent[ulp_v] = ulp_u;   // OR parent[ulp_u] = ulp_v;
             rank[ulp_u]++;           // rank[ulp_v]++;
         }       
+    }
+
+    void unionBySize(int u,int v)
+    {
+        int ulp_u = findUPar(u);
+        int ulp_v= findUPar(v);
+        if(ulp_u == ulp_v)
+        return;
+
+        if(size[ulp_u] < size[ulp_v])
+        {
+            parent[ulp_u] = ulp_v;
+            
+        }
+        else{
+            parent[ulp_v] = ulp_u;
+            size[ulp_u]++;
+        }
     }
  };
 
