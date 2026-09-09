@@ -58,3 +58,15 @@ public:
         }
         return maxSum;
     }
+
+
+// Why it fails:
+// maxSum starts at 0.
+// If all numbers are negative, the algorithm will incorrectly return 0 instead of the maximum (least negative) element.
+
+int currSum=0, maxSum=0;
+for(int i=0; i<n; i++) {
+    currSum = max(nums[i], nums[i] + currSum);
+    maxSum = max(maxSum, currSum);
+}
+return maxSum;
