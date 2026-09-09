@@ -147,7 +147,7 @@ int trap(vector<int>& height) {
 // If the current bar is taller, you’ve found a right boundary.
 // → Pop from the stack (that’s the “bottom” of the valley).
 // → Now check the new stack top (that’s the “left boundary”).
-// → Compute trapped water as: water = (min(ht[left], ht[right]) - ht[bottom])*width
+// → Compute trapped water as: water = (min(ht[left], ht[right]) - ht[bottom])*width, width = (right - left - 1)* (width of bar given as 1 generally)
 
 
 
