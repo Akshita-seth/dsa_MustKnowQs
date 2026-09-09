@@ -3,6 +3,9 @@
 // Pattern: Two-pointer
 //https://takeuforward.org/data-structure/4-sum-find-quads-that-add-up-to-a-target-value
 
+// TC: O(NlogN) + O(N^3) sorting + (i,j loop)*TwoPointer
+// SC: O(1)
+
 #include <bits/stdc++.h>
 using namespace std;
 
