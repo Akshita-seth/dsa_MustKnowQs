@@ -139,6 +139,18 @@ int trap(vector<int>& height) {
 // The trapped water is defined by the difference in heights, not the bar itself
 //  You’re trying to measure volume of water trapped in valleys between bars.
 
+// Stack Intuition
+// The stack stores indices of bars in monotonic decreasing order of height.
+// As you scan left → right:
+// If the current bar is shorter or equal to the bar at the stack’s top, push it.
+// → It might be a future “valley” bottom.
+// If the current bar is taller, you’ve found a right boundary.
+// → Pop from the stack (that’s the “bottom” of the valley).
+// → Now check the new stack top (that’s the “left boundary”).
+// → Compute trapped water as: water = (min(ht[left], ht[right]) - ht[bottom])*width
+
+
+
 class Solution {
 public:
     int trap(vector<int>& height) {
