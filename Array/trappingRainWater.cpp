@@ -47,6 +47,17 @@ int trap(vector<int>& height) {
 // This way, each index is processed exactly once, and you never miscount.
 
 
+// Dry Run Example
+// height = [4,2,0,3,2,5]
+// Start: left=0, right=5, maxLeft=4, maxRight=5
+// Compare → maxLeft < maxRight → process left side
+// Move inward, update trapped water step by step:
+// At i=1: water = maxLeft(4) - height(2) = 2
+// At i=2: water = 4 - 0 = 4
+// At i=3: water = 4 - 3 = 1
+// At i=4: water = 4 - 2 = 2
+// Total = 9 ✅
+
 
 
 #include <bits/stdc++.h>
