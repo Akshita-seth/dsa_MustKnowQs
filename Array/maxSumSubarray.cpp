@@ -43,3 +43,18 @@ public:
     return maxS;
     }
 };
+
+
+// if initialising with currSum with 0 then start loop with 0
+
+ int maxSubArray(vector<int>& nums) {
+        int n = nums.size();
+        int currSum=0, maxSum=nums[0];
+
+        for(int i=0; i<n; i++)
+        {
+            currSum = max(nums[i], nums[i] + currSum);
+            maxSum = max(maxSum, currSum);
+        }
+        return maxSum;
+    }
