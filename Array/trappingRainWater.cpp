@@ -32,8 +32,22 @@ int trap(vector<int>& height) {
         return total;
     }
 
+
 //Optimized: 
 // TC: O(n) SC: O(1)
+// Intuition Behind Two Pointers
+// Place two pointers: left at start, right at end.
+// Track maxLeft and maxRight as you move inward.
+// At each step, compare maxLeft and maxRight:
+// If maxLeft < maxRight, then the water trapped at left depends only on maxLeft.
+// Why? Because the right side is guaranteed to be taller, so the limiting factor is the left boundary.
+// → Process left, move left++.
+// Else, process right, because the left side is guaranteed taller, so the limiting factor is maxRight.
+// → Move right--.
+// This way, each index is processed exactly once, and you never miscount.
+
+
+
 
 #include <bits/stdc++.h>
 using namespace std;
