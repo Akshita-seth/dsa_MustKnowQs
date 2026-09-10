@@ -3,7 +3,7 @@
 // https://www.geeksforgeeks.org/dsa/given-a-sequence-of-words-print-all-anagrams-together/
 
 //BFS:
-// TC: O(n^2 * klogk), Sorting each comparison: O(klogk) in helper fn and Comparing all pairs: O(n^2)
+// TC: O(n^2 * klogk), Sorting each comparison: O(klogk) in helper fn and Comparing all pairs: O(n^2) [k = maximum length of a single word.]
 // SC: O(n.k), Sorting O(1) or O(k) depending on sorting algo, here assumed O(1), Group stored O(n.k)
 
 vector<vector<string>> anagrams(vector<string> &arr) {
@@ -36,7 +36,7 @@ vector<vector<string>> anagrams(vector<string> &arr) {
 
 
 // BS: Sort each word once, use the sorted string as a hash key in a map.
-// TC: O(n. klogk) Sorting each word: O(klogk), For n words: O(n. klogk), Hash insertions: O(n)
+// TC: O(n. klogk) Sorting each word: O(klogk), For n words: O(n. klogk), Hash insertions: O(n). [k = maximum length of a single word.]
 // SC: O(n.k) Hash map storing groups
 
  vector<vector<string>> groupAnagrams(vector<string>& strs) {
