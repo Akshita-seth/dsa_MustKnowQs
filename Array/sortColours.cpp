@@ -8,6 +8,10 @@
 
 //Optimized: DUTCH NATIONAL FLAG ALGORITHM - One pass solution
 // TC: O(n) SC: O(1)
+// ✅ Key insight:
+// We increment mid after swapping with low because the swapped-in value is already processed and safe. We don’t increment mid after swapping with high because the swapped-in value is unprocessed and must be checked.
+
+
 #include <bits/stdc++.h>
 using namespace std;
 
