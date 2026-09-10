@@ -99,7 +99,7 @@ void nextPermutation(vector<int>& nums) {
            } 
 
         // Step 2: Find the element just larger than nums[i] to the right
-        for (int i = n - 1; i >= idx; i--) {
+        for (int i = n - 1; i > idx; i--) {
             if (nums[i] > nums[idx]) {
                 swap(nums[i], nums[idx]);
                 break;
@@ -109,3 +109,6 @@ void nextPermutation(vector<int>& nums) {
         reverse(nums.begin() + idx + 1, nums.end());
        
     }
+
+// sort(nums.begin()+idx+1, nums.end());.
+// That works, but since the suffix is guaranteed to be in descending order, you can just reverse it — faster and cleaner.
