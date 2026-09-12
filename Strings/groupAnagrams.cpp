@@ -39,6 +39,11 @@ vector<vector<string>> anagrams(vector<string> &arr) {
 // TC: O(n. klogk) Sorting each word: O(klogk), For n words: O(n. klogk), Hash insertions: O(n). [k = maximum length of a single word.]
 // SC: O(n.k) Hash map storing groups
 
+// For each word:
+// Sort its letters → canonical key.
+// If key not in map → create new group.
+// Push original word into that group.
+
  vector<vector<string>> groupAnagrams(vector<string>& strs) {
         int n = strs.size();
         vector<vector<string>> anagrams;
