@@ -12,6 +12,9 @@
 // If k is large, expansion dominates.
 // Example: "100[a]" → output length = 100, so expansion cost is proportional to k.
 
+// Numbers in the string can be multi-digit, so parsing digit-by-digit without accumulating them loses the actual value.
+// You need to form the complete integer before processing the bracketed substring.
+
 
  string decodeString(string s) {
         string currString;
