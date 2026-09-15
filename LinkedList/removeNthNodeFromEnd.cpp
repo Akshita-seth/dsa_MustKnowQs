@@ -62,6 +62,7 @@ public:
 
 // OS:
 // TC: O(n), SC: O(1)
+// Without a dummy, if you need to remove the first node (the head), you’d need a special case
 // Dummy ensures slow always sits before the node to delete. As fast moves n+1 steps too, slow sits one node before the NnodeToDelete
 // That means deletion is always slow->next = slow->next->next, whether it’s the head or any other node.
 // Returning dummy->next guarantees you get the correct new head.
