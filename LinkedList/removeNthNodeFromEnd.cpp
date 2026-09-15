@@ -62,6 +62,9 @@ public:
 
 // OS:
 // TC: O(n), SC: O(1)
+// Dummy ensures slow always sits before the node to delete. As fast moves n+1 steps too, slow sits one node before the NnodeToDelete
+// That means deletion is always slow->next = slow->next->next, whether it’s the head or any other node.
+// Returning dummy->next guarantees you get the correct new head.
 
 ListNode* removeNthFromEnd(ListNode* head, int n) {
         ListNode* dummy = new ListNode(0,head); // dummy->head
