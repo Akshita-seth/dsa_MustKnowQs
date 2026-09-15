@@ -3,6 +3,12 @@
 
 
 // BFS: TC: O(M^3 + M*N), SC: O(256) constant extra space
+// For each of the O(m²) substrings:
+// Substring creation: O(m)
+// hasAllChars: O(m + n)
+// Multiply by O(m²) substrings:, So per substring = O(m + n + m) = O(m + n) (since O(m) dominates O(1)).
+// => O(m^2.(m+n)) = O(m^3 + m^2n) = O(m^3 + m*n)
+
 // Generate all substrings and compare if substring hasAllChars by comparing the frequency using fixed arrayof 256 size
 
 class Solution {
