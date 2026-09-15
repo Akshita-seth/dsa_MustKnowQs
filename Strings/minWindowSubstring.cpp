@@ -75,39 +75,45 @@ class Solution {
 public:
     string minWindow(string s, string t) {
         int m = s.size();
-        int n = t.size();
+        int n = t.length();
+        vector<int> freq(256,0);
         int minLen = INT_MAX;
-        int startIdx = -1;
+        int start = -1;
         int count = 0;
         int l=0, r=0;
 
-        // Requirement array
-        int freq[256] = {0};
-        for(char ch: t) // O(N)
-            freq[ch]++;
+        //Requirement array
+        for(char ch: t)
+        freq[ch]++;
 
-        while(r < m) // O(M)
+        while(r < m)
         {
-            // If already preinserted
+            //If already preinserted
             if(freq[s[r]] > 0)
             count++;
-            freq[s[r]]--; // always decrement
 
-            while(count == n) // O(M) worst case
+            freq[s[r]]--; //always decrements
+
+            //if requirement fulfilled
+            while(count == n)
             {
+                // check if minimum substring found
                 if(r-l+1 < minLen)
                 {
                     minLen = r-l+1;
-                    startIdx = l;
-                } 
-                // Shrinking from left
-                freq[s[l]]++;
+                    start = l;
+                }
+                // shrinking
+                freq[s[l]]++; //compensating the feq array since decremented before
                 if(freq[s[l]] > 0)
-                count--;
+                count--; // requirement decreased
                 l++;
             }
-            r++;
+
+            r++; // expansion
+
         }
-        return startIdx == -1 ? "" : s.substr(startIdx, minLen);
+        // check is imp bcz what if no such substring found
+        return start == -1? "": s.substr(start, minLen);
     }
 };
