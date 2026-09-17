@@ -28,6 +28,9 @@ int subarraySum(vector<int>& nums, int k) {
 // SC: O(N) map
 //Approach: V.Imp 1.storing key as prefix sum and value as freq 
 // 2. prefixSum[0] =1; first entry in map
+// you want this subarray sum to equal k: preSum[i] - preSum[j-1] = k
+// Rearranging this equation to solve for the earlier prefix sum (preSum[j-1], which is what needs to be removed): preSum[j-1] = preSum[i] - k
+// What Happens When You Do -> remove = k - preSum 
 
 
 #include<bits/stdc++.h>
