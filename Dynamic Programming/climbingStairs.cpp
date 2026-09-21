@@ -9,7 +9,6 @@
 // f(0) = 1
 // f(1) = 1
 
-// recursive: 
 // Understanding Base Cases:
 // Think of n as "remaining steps to climb."
 
@@ -21,7 +20,9 @@
 // You can take that single step, and that’s one valid way.
 // So we return 1
 
-// Issues: Exponential time complexity: Each call branches into two more calls, leading to repeated computations. Complexity is O(2^N)
+// RECURSIVE: 
+// Issues: Exponential time complexity: Each call branches into two more calls, leading to repeated computations. 
+// Complexity is O(2^N)
 
 class Solution {
 public:
@@ -79,3 +80,24 @@ public:
     }
 };
 
+
+// SPACE OPTIMIZED: TC: O(N) SC: O(1)
+
+class Solution {
+public:
+    int climbStairs(int n) {
+        if(n == 0 || n == 1)
+        return 1;
+
+        int prev1 = 1;
+        int prev2 = 1;
+        
+        for(int i = 2; i<=n; i++)
+        {
+            int curr = prev1 + prev2;
+            prev2 = prev1;
+            prev1 = curr;
+        }
+        return prev1;
+    }
+};
