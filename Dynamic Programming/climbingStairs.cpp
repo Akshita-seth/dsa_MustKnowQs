@@ -41,5 +41,41 @@ public:
 
 // OPTIMIZATIONS: 
 
+// MEMOIZATION: TC: O(N) SC: O(N) + O(N)
+//initializing dp with -1 is imp so verify if it's calculated already or not
 
+class Solution {
+public:
+    int climbStairs(int n) {
+        vector<int> dp(n+1, -1);
+        return helper(n, dp);
+    }
+    int helper(int n, vector<int>& dp) {
+        if(n == 0 || n == 1) return 1;
+        if(dp[n] != -1) return dp[n];
+        dp[n] = helper(n-1, dp) + helper(n-2, dp);
+        return dp[n];
+    }
+};
+
+// TABULATION: TC: O(N) SC: O(N)
+// No need of initializing with -1 for dp array, just initialise the base case values
+
+class Solution {
+public:
+    int climbStairs(int n) {
+        if(n == 0 || n == 1)
+        return 1;
+
+        vector<int> dp(n+1);
+        dp[0] = 1;
+        dp[1] = 1;
+        
+        for(int i = 2; i<=n; i++)
+        {
+            dp[i] = dp[i-1] + dp[i-2];
+        }
+        return dp[n];
+    }
+};
 
