@@ -113,3 +113,9 @@ public:
         return ans;
     }
 };
+
+
+// Both are quadratic in time, but the two‑pointer method is faster in practice because:
+// Sorting once is cheaper than sorting every triplet.
+// No repeated set insertions.
+// Lower memory usage.
