@@ -61,4 +61,12 @@ E Adjacency list construction in Graph
   - It’s not an error because C++ allows discarding return values unless explicitly marked otherwise.
    [[nodiscard]] bool dfs(...);
      Whether you use the return value or rely on side effects is purely a design choice. In your code, the safe array is the mechanism you’ve chosen to capture results, so ignoring the bool is intentional and valid.
+
+
+F 
+❌ std::unordered_map<std::pair<int, int>, int>: Fails to compile
+
+✔️ std::unordered_map<int, std::pair<int, int>>: Works fine
+
+soln? use map 
   
