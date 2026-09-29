@@ -19,7 +19,7 @@
 // 👉 If you want to avoid touching the original array at all, you could pass nums by value (copy) into permute(). 
 // That way, each recursive call works on its own copy. But that’s less efficient
 
-
+ // BFS doesn’t correctly capture lexicographic order when duplicates are present:
 
 
 #include <bits/stdc++.h>
