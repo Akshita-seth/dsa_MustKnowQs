@@ -16,6 +16,33 @@ public:
 };
 
 
+// OS: Three pointers and sort backwards
+// TC: O(M+N) SC: O(1)
+
+
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        int p1 = m-1;  // end of nums1’s valid elements
+        int p2 = n-1;  // end of nums2
+        int p = m+n-1;   // end of nums1’s allocated space
+
+        while(p1 >= 0 && p2 >= 0)
+        {
+            if(nums1[p1] > nums2[p2])
+            nums1[p--] = nums1[p1--];
+            else
+            nums1[p--] = nums2[p2--];
+        }
+        while(p2 >= 0)
+        nums1[p--] = nums2[p2--];
+        
+    }
+};
+
+
+// There’s also a gap method or using extra arrays, but the in-place three-pointer approach is the most efficient and clean.
+
 
 // GFG Version: https://www.geeksforgeeks.org/problems/merge-two-sorted-arrays-1587115620/1
 // 2Input 2 arrays, output 2 arrays
