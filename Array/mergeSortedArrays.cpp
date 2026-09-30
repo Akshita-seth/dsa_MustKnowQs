@@ -85,3 +85,56 @@ class Solution {
 };
 
 // OS 2: Gap MEthod based on Shell Sort
+// TC: O(logbase2(m+n) * (m+n)) SC: O(1)
+
+
+
+class Solution {
+  public:
+    void swapIfGreater(vector<int>& a, vector<int>& b, int i, int j)
+    {
+        if(a[i] > b[j])
+        swap(a[i], b[j]);
+    }
+    void mergeArrays(vector<int>& a, vector<int>& b) {
+        // code here
+        int m = a.size();
+        int n = b.size();
+        
+        int len = (m+n);
+        int gap = len/2 + len%2;  // to get ceil value
+        
+        while(gap > 0)
+        {
+            int left = 0;
+            int right = left + gap;
+            
+            while(right < len)
+            {
+                // Case 1: left in a, right in b
+                if(left < m && right >= m )
+                {
+                    swapIfGreater(a,b,left, right-m);
+                }
+                
+                // Case 2: left in b, right in b
+                else if(left >= m)
+                {
+                    swapIfGreater(b,b,left-m,right-m);
+                }
+                
+                // Case 3: left in a, right in a
+                else
+                {
+                    swapIfGreater(a,a,left,right);
+                }
+                left++, right++;
+            }
+            
+            if(gap == 1) break;
+            gap = gap/2 + gap%2; // ceil value
+        }
+        
+        
+    }
+};
