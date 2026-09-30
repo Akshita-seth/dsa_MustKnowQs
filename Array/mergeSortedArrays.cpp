@@ -42,6 +42,38 @@ public:
 
 
 // There’s also a gap method or using extra arrays, but the in-place three-pointer approach is the most efficient and clean.
+//just for knowledge
+
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        // First, copy nums2 into nums1’s extra space
+        for (int i = 0; i < n; i++) {
+            nums1[m + i] = nums2[i];
+        }
+
+        int len = m + n;
+        int gap = (len / 2) + (len % 2); // ceil(len/2)
+
+        while (gap > 0) {
+            int left = 0;
+            int right = left + gap;
+
+            while (right < len) {
+                if (nums1[left] > nums1[right]) {
+                    swap(nums1[left], nums1[right]);
+                }
+                left++;
+                right++;
+            }
+
+            if (gap == 1) break;
+            gap = (gap / 2) + (gap % 2); // shrink gap
+        }
+    }
+};
+
+
 
 
 // GFG Version: https://www.geeksforgeeks.org/problems/merge-two-sorted-arrays-1587115620/1
