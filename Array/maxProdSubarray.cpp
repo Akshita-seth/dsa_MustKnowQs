@@ -57,9 +57,16 @@ public:
 // TC: O(N) One pass only
 
 //Intuition:
-// Swap step: handles negatives flipping signs.
-// Compare with nums[i]: ensures we can “restart” the product at the current element.
-// Track both min and max: because a large negative can become a large positive later.
+// Swap: Negative flips the sign, so the roles of max/min reverse.
+// Track both max & min: Because the “worst” product can become the “best” later.
+// Compare with nums[i] itself: Sometimes starting fresh is better than extending.
+
+// If you had a large positive product (maxEndingHere) and multiply by a negative, it becomes a large negative.
+// If you had a large negative product (minEndingHere) and multiply by a negative, it becomes a large positive.
+// That’s why we swap maxEndingHere and minEndingHere whenever we encounter a negative number.
+// It ensures that the “worst” product (negative) gets a chance to become the “best” product (positive) after multiplication.
+
+🧮 Dry Run
 
 
 class Solution {
