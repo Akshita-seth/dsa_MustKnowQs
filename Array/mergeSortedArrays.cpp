@@ -68,8 +68,8 @@ public:
                 left++;
                 right++;
             }
-
-            if (gap == 1) break;
+            // You’d end up comparing the same index with itself, which is meaningless.
+            if (gap == 1) break;  //  ensures the algorithm stops cleanly after the last useful pass.
             gap = (gap / 2) + (gap % 2); // shrink gap
         }
     }
