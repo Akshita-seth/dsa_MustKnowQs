@@ -133,5 +133,5 @@ public:
 
 
 
-// At most k - 1 values can cross that threshold. A generalized voting algorithm maintains k - 1 candidate slots, cancels votes when a new value matches no active slot, and verifies every remaining candidate in a final traversal. 
-Its time complexity is O(nk) with a straightforward slot scan and its auxiliary space is O(k).
+// For n/k At most k - 1 values can cross that threshold. A generalized voting algorithm maintains k - 1 candidate slots, cancels votes when a new value matches no active slot, and verifies every remaining candidate in a final traversal. 
+// Its time complexity is O(nk) with a straightforward slot scan and its auxiliary space is O(k).
