@@ -34,7 +34,9 @@ public:
             else
             nums1[p--] = nums2[p2--];
         }
-        while(p2 >= 0)
+        // Remaining nums1 elements are already in place.
+        // Remaining nums2 elements must be inserted
+        while(p2 >= 0)    
         nums1[p--] = nums2[p2--];
         
     }
