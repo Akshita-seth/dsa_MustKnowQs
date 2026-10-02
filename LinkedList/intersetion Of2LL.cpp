@@ -27,3 +27,37 @@ public:
 // Your code compares 1 vs 9, then 2 vs 4, then 3 vs 5.
 // When headB reaches NULL, the loop stops.
 // But the actual intersection is at node 4, which is missed.
+
+
+
+// BFS: check every node in ListA with every node in ListB
+// TC: O(N × M), where N is the number of nodes in the first linked list and M is the number of nodes in the second linked list.
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* tempA = headA;
+
+        while(tempA)
+        {
+           ListNode* tempB = headB;
+           while(tempB)
+           {
+            if(tempA == tempB)
+            return tempA;
+            tempB = tempB->next;
+           }
+           tempA = tempA->next;
+        }
+        return NULL;
+    }
+};
