@@ -90,3 +90,9 @@ ListNode* removeNthFromEnd(ListNode* head, int n) {
 
         return dummy->next;
     }
+
+// why while(fast != NULL) ?
+// Here, the goal is not to find the middle but to stop exactly when fast reaches the end.
+// You first move fast ahead by n+1 steps.
+// Then you advance both fast and slow together until fast hits NULL.
+// At that moment, slow is right before the node to delete.
