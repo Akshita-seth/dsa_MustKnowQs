@@ -1,5 +1,5 @@
-//Problem: find intersection of 2 LL
-// 
+//Problem: find the intersection of 2 LL
+//  https://leetcode.com/problems/intersection-of-two-linked-lists/description/
 
 // DND:
 class Solution {
