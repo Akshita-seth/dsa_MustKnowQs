@@ -87,3 +87,45 @@ public:
         return NULL;
     }
 };
+
+
+// OS: Two pointers can automatically balance the different lengths of the two linked lists without calculating their lengths. Each pointer traverses its own list first and then continues through the other list after reaching the end.
+// Because both pointers eventually cover the same total distance, any shared suffix causes them to meet at the first common node. If the lists do not intersect, both pointers reach null after covering the same distance.
+// TC: O(M+N), SC: O(1)
+
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        
+        ListNode* first = headA;
+        ListNode* second = headB;
+
+        while(first || second)
+        {
+            if(first == second)
+            return first;
+            if(!first)
+            first = headB;
+            else
+            first = first->next;
+            if(!second)
+            second = headA;
+            else
+            second = second->next;
+        }  
+        return NULL;
+    }
+};
+
+// OR  more efficiently coded:
+ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+    ListNode* pA = headA;
+    ListNode* pB = headB;
+
+    while(pA != pB) {
+        pA = (pA == NULL) ? headB : pA->next;
+        pB = (pB == NULL) ? headA : pB->next;
+    }
+    return pA; // either intersection node or NULL
+}
+
