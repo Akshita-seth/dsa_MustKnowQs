@@ -83,3 +83,6 @@ public:
 
     }
 };
+
+// Why while(fast->next != NULL && fast->next->next != NULL) ?
+// Intuition: You stop when fast can’t move two steps further, because that’s the point where slow has reached the middle.
