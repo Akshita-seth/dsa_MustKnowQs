@@ -68,6 +68,9 @@ public:
 
 
 // Optimized: Using findMidOfList and merge2SortedLists we implemented divide and conquer i.e. merge sort for sorting a linked list.
+// Merge sort is well suited for linked lists because it does not require random access. We first split the linked list into two halves using slow and fast pointers, recursively sort both halves, and then merge the two sorted lists by relinking the existing nodes.
+// Since each split divides the list into smaller parts and each merge processes every node exactly once, the algorithm efficiently sorts the linked list while using only pointer manipulations.
+
 // TC: O((N + N/2)logN) => O(N*LogN), we recursively divide the linked list into two halves and then merge two sorted halves.
 // SC: O(1), just recursive stack space it takes.
 
