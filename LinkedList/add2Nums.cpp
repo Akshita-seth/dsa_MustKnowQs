@@ -30,7 +30,8 @@ public:
 };
 
 
-// Optimized:
+// Optimized Traverse both lists simultaneously, at each step conditionally summing the current digits from l1, l2, and any carry (since any of the three can exist), 
+// create a new node with sum % 10, update carry as sum / 10, and keep moving forward until all lists and carry are exhausted — ensuring the result list correctly represents the digit‑wise addition.
 // TC: O(max(m,n))  where m and n are lengths of the two lists.
 // SC: O(1) but if the new created list considered O(max(m,n)), The length of the new LL is at max max(m,n)+1;
 
