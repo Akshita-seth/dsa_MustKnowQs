@@ -30,7 +30,7 @@ public:
 
 
 
-// BFS: check every node in ListA with every node in ListB
+// BFS: Compare every node of the first linked list with every node of the second linked list. Since intersection depends on the same node reference, not just equal values, a matching reference identifies the first common physical node.
 // TC: O(N × M), where N is the number of nodes in the first linked list and M is the number of nodes in the second linked list.
 
 
@@ -57,6 +57,32 @@ public:
             tempB = tempB->next;
            }
            tempA = tempA->next;
+        }
+        return NULL;
+    }
+};
+
+
+// Better: Store the node references of the first linked list in a hash set. This makes it possible to check whether a node from the second list belongs to the first list in O(1) average time, avoiding repeated comparisons.
+// TC: O(M+N), SC: O(M)
+
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        unordered_map<ListNode*, int> mpp;
+        ListNode* tempA = headA;
+        ListNode* tempB = headB;
+
+        while(tempA)
+        {
+           mpp[tempA] = 1;
+           tempA = tempA->next;
+        }
+        while(tempB)
+        {
+            if(mpp.find(tempB) != mpp.end())
+            return tempB;
+            tempB = tempB->next;a
         }
         return NULL;
     }
