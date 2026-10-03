@@ -95,6 +95,36 @@ public:
     }
 };
 
+//OR
+
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        int n1 = nums1.size();
+        int n2 = nums2.size();
+        unordered_map<int, int> nge;
+        vector<int> ans;
+
+        for(int i=0; i<n2; i++)
+        {
+            nge[nums2[i]] = -1;
+            for(int j=i+1; j<n2; j++)
+            {
+                if(nums2[j] > nums2[i])
+                {
+                    nge[nums2[i]] = nums2[j];
+                    break;
+                }
+            }
+        }
+        for(int n:nums1)
+        {
+            ans.push_back(nge[n]);
+        }
+        return ans;
+    }
+};
+
 
 // OS: Monotonic Stack
 // TC: O(N1+N2)  (linear scan of both arrays, each element pushed/popped once), SC: O(N2 + N2) for stack + hashmap
