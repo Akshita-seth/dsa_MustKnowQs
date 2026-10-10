@@ -61,7 +61,7 @@ public:
         // check each possible sequence from the start then update optimal length
         for(int n:st)
         {
-            if(st.find(n) != st.end() && st.find(n-1) == st.end()) // n can be the staring poinmt of sequence
+            if(st.find(n) != st.end() && st.find(n-1) == st.end()) // n can be the staring poinmt of sequence. Find the numbers that have no predecessor in the set. Those are the sequence starters. Everything else should be skipped.
             {
                 // now check for further elements but can't modify the looping var n
                 int curr = n, cnt = 0;
