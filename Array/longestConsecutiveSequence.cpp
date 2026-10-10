@@ -1,8 +1,8 @@
-// Problem: Longest Consecution Sequence
+// Problem: Longest Consecutive Sequence
 // https://leetcode.com/problems/longest-consecutive-sequence/
 
 
-// BFS:
+// BFS: Nested loop, make sure to continue for duplicates
 // TC: O(n * log n), SC: O(1)
 
 class Solution {
