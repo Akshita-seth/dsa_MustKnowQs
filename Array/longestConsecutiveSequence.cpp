@@ -1,7 +1,7 @@
 // Problem: Longest Consecutive Sequence
 // https://leetcode.com/problems/longest-consecutive-sequence/
 
-//Always checking done with nums[i[ and nums[i-1] (not i+1)
+//Always checking done with nums[i] and nums[i-1] (not i+1)
 
 // BFS: Nested loop, make sure to continue for duplicates
 // TC: O(n * log n), SC: O(1)
