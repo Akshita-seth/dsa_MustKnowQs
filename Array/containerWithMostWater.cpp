@@ -2,6 +2,14 @@
 // Link: https://leetcode.com/problems/container-with-most-water/description/
 // Pattern: Two-pointer
 
+
+// In Container With Most Water, the width is:width=j−i and not j−i+1
+// because the indices represent the positions of vertical lines, not the number of elements between them.
+// ✅ Counting elements in a range → r - l + 1
+// ✅ Measuring distance between positions/coordinates → r - l
+// Container With Most Water is a distance problem, so use r - l.
+
+
 // BFS: Nested loop, try all possible pairs
 // TC: O(n^2)  SC:O(1)
 
