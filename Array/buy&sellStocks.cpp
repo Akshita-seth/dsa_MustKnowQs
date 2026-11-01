@@ -42,7 +42,7 @@ public:
     }
 };
 
-// Variation of Qs: If the buying and selling date as a vector {,} for max profit were also asked in question.
+// 1st Variation of Qs: If the buying and selling date as a vector {,} for max profit were also asked in question.
 // TC: O(N) SC: O(1)
 
 
@@ -67,3 +67,6 @@ public:
         return {buyDay, sellDay}; // indices of buy and sell
     }
 };
+
+// 2nd Variation of Qs
+// https://www.geeksforgeeks.org/dsa/stock-buy-sell/
