@@ -70,4 +70,31 @@ class Solution {
     }
 };
 
+// ALSO works without helper fn
 
+class Solution {
+  public:
+    int lengthOfLoop(Node *head) {
+        // code here
+        Node* fast = head, *slow = head;
+        
+        while(fast && fast->next)
+        {
+            fast = fast->next->next;
+            slow = slow->next;
+            
+            if(fast == slow)
+            {
+                int len = 1;
+                fast = fast->next;
+                while(fast != slow)
+                {
+                    len++;
+                    fast = fast->next;
+                }
+                return len;
+            }
+        }
+        return 0;
+    }
+};
