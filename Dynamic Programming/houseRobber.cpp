@@ -28,6 +28,29 @@ public:
     }
 };
 
+// If n treated as index
+
+
+class Solution {
+public:
+    int maxRob(vector<int>& nums, int n)
+    {
+        if(n < 0)
+        return 0;
+        if(n == 0)
+        return nums[0];
+
+        int pick = nums[n] + maxRob(nums,n-2);
+        int notPick = maxRob(nums,n-1);
+
+        return max(pick, notPick);
+    }
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        return maxRob(nums, n-1);
+    }
+};
+
 
 // Memoization
 
@@ -57,7 +80,29 @@ public:
 
 //IF n was treated as index 
 
+class Solution {
+public:
+    int maxRob(vector<int>& nums, int n, vector<int>& dp)
+    {
+        if(n < 0)
+        return 0;
+        if(n == 0)
+        return nums[0];
 
+        if(dp[n] != -1)
+        return dp[n];
+
+        int pick = nums[n] + maxRob(nums,n-2, dp);
+        int notPick = maxRob(nums,n-1, dp);
+
+        return dp[n] = max(pick, notPick);
+    }
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> dp(n,-1);
+        return maxRob(nums, n-1, dp);
+    }
+};
 
 
 // Tabulation: TC: O(n) SC: O(n)
