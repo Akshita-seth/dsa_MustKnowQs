@@ -121,3 +121,52 @@ public:
         return dp[n];
     }
 };
+
+// if n was treated as index
+
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> dp(n,-1);
+        dp[0] = nums[0];
+        int pick, notPick;
+
+        for(int i=1; i<n; i++)
+        {
+            pick = nums[i];
+            if(i > 1) pick += dp[i-2];
+            notPick = dp[i-1];
+
+            dp[i] = max(pick, notPick);
+        }
+        return dp[n-1];
+    }
+};
+
+
+// Space optimization: TC: O(n) SC: O(1)
+// here n taken as index
+
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        
+        int prev1 = nums[0];
+        int prev2 = 0;
+        int pick, notPick, curr;
+
+        for(int i=1; i<n; i++)
+        {
+            pick = nums[i];
+            if(i > 1) pick += prev2;
+            notPick = prev1;
+
+            curr = max(pick, notPick);
+            prev2 = prev1;
+            prev1 = curr;
+        }
+        return prev1;
+    }
+};
